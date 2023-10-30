@@ -1,0 +1,1 @@
+import{j as r}from"./index-83d751bd.js";import{C as t,B as a}from"./Center-aaf3177a.js";const s=()=>r.jsx(t,{w:"100vw",h:"100vh",bg:"var(--mantine-color-white)",children:r.jsx(a,{w:"30vw",ta:"center",children:"Dashboard"})});export{s as default};

@@ -1,0 +1,8 @@
+{
+  "cSpell.words": ["mantine", "arrowParens"],
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": true,
+    "source.addMissingImports": true,
+    "source.removeUnusedImports": true
+  }
+}
