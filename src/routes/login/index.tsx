@@ -1,5 +1,6 @@
 import LoginForm from "@/components/Login/Form";
-import { Anchor, Center, Container, Stack } from "@mantine/core";
+import Layout from "@/components/layout";
+import { Text, Container, Title, Stack, Center } from "@mantine/core";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -12,24 +13,18 @@ export default function Login() {
   });
 
   return (
-    <Container h='100vh' size='' bg='var(--mantine-color-gray-light)'>
-      <Container pt='5rem'>
-        <Container size='xs' p={0} bg='white' style={{ borderRadius: "4px" }}>
-          <Center>
-            <Stack gap='1rem' p='2rem'>
-              <Center fz='1.4rem'>Welcome Back !</Center>
-              <div>Sign in to continue to C-Booking.</div>
-            </Stack>
-          </Center>
+    <Layout>
+      <Center h='100%'>
+        <Container p={0} style={{ borderRadius: "4px", width: "480px", paddingBottom: 16 }}>
+          <Stack justify='' gap='1rem' py='2rem'>
+            <Title align='center' fz={36} fw={900}>
+              Welcome Back !
+            </Title>
+            <Text align='center'>Sign in to continue to C-Booking.</Text>
+          </Stack>
           <LoginForm />
         </Container>
-        <Center mt='1rem'>
-          Do not have an account ?&nbsp;
-          <Anchor href='/register' underline='never'>
-            Register now
-          </Anchor>
-        </Center>
-      </Container>
-    </Container>
+      </Center>
+    </Layout>
   );
 }

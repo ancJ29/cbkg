@@ -1,4 +1,5 @@
-import { Anchor, Button, Center, Container, Group, Stack, TextInput } from "@mantine/core";
+import Layout from "@/components/layout";
+import { Anchor, Button, Card, Center, Container, Group, Stack, TextInput } from "@mantine/core";
 import { useForm, zodResolver } from "@mantine/form";
 import { z } from "zod";
 
@@ -19,17 +20,17 @@ const ForgotPassword = () => {
     console.log(data);
   };
   return (
-    <Container h='100vh' size='' bg='var(--mantine-color-gray-light)'>
-      <Container pt='5rem'>
-        <Container size='xs' p={0} bg='white' style={{ borderRadius: "4px" }}>
+    <Layout>
+      <Center h='100%'>
+        <Container>
           <Center>
             <Stack gap='1rem' p='2rem'>
               <Center fz='1.4rem'>Reset Password</Center>
               <div>Re-Password with C-Booking.</div>
             </Stack>
           </Center>
-          <Stack p='2rem'>
-            <Center bg='teal.1' h='3rem' style={{ borderRadius: "4px" }}>
+          <Card withBorder shadow='md' radius={10} p='2rem'>
+            <Center bg='teal.1' h='3rem' px='1rem' style={{ borderRadius: "4px" }}>
               Enter your Email and instructions will be sent to you!
             </Center>
             <form onSubmit={form.onSubmit((values) => onSubmit(values))}>
@@ -38,16 +39,16 @@ const ForgotPassword = () => {
                 <Button type='submit'>Reset</Button>
               </Group>
             </form>
-          </Stack>
+          </Card>
+          <Center mt='2rem'>
+            Remember It ?&nbsp;
+            <Anchor href='/login' underline='never'>
+              Sign In here
+            </Anchor>
+          </Center>
         </Container>
-        <Center mt='2rem'>
-          Remember It ?&nbsp;
-          <Anchor href='/login' underline='never'>
-            Sign In here
-          </Anchor>
-        </Center>
-      </Container>
-    </Container>
+      </Center>
+    </Layout>
   );
 };
 export default ForgotPassword;

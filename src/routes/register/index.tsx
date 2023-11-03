@@ -1,5 +1,6 @@
+import Layout from "@/components/layout";
 import callApi from "@/services/api";
-import { Container, Center, Stack, TextInput, Group, Button, Anchor, PasswordInput } from "@mantine/core";
+import { Container, Center, Stack, TextInput, Group, Button, Anchor, PasswordInput, Card } from "@mantine/core";
 import { useForm, zodResolver } from "@mantine/form";
 import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
@@ -39,16 +40,16 @@ const Register = () => {
   );
 
   return (
-    <Container h='100vh' size='' bg='var(--mantine-color-gray-light)'>
-      <Container pt='5rem'>
-        <Container size='xs' p={0} bg='white' style={{ borderRadius: "4px" }}>
+    <Layout>
+      <Center h='100%'>
+        <Container p={0} style={{ borderRadius: "4px", width: "480px", paddingBottom: 16 }}>
           <Center>
             <Stack gap='1rem' p='2rem'>
               <Center fz='1.4rem'>Free Register</Center>
               <div>Get your free c-booking account now</div>
             </Stack>
           </Center>
-          <Stack p='2rem'>
+          <Card withBorder shadow='md' radius={10} p='2rem'>
             <form onSubmit={form.onSubmit((values) => onSubmit(values))}>
               <TextInput label='Username' placeholder={"Enter Username"} {...form.getInputProps("username")} />
               <PasswordInput label='Password' placeholder={"Enter Password"} {...form.getInputProps("password")} />
@@ -58,16 +59,17 @@ const Register = () => {
                 </Button>
               </Group>
             </form>
-          </Stack>
+          </Card>
+
+          <Center mt='2rem'>
+            Already have an account ?&nbsp;
+            <Anchor href='/login' underline='never'>
+              Login
+            </Anchor>
+          </Center>
         </Container>
-      </Container>
-      <Center mt='2rem'>
-        Already have an account ?&nbsp;
-        <Anchor href='/login' underline='never'>
-          Login
-        </Anchor>
       </Center>
-    </Container>
+    </Layout>
   );
 };
 export default Register;
