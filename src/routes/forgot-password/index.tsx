@@ -1,4 +1,6 @@
-import { Anchor, Button, Center, Container, Group, Stack, TextInput } from "@mantine/core";
+import TextInput from "@/components/common/TextInput";
+import AuthLayout from "@/components/layout/Auth";
+import { Anchor, Box, Button, Card, Center, Group, Text } from "@mantine/core";
 import { useForm, zodResolver } from "@mantine/form";
 import { z } from "zod";
 
@@ -16,38 +18,32 @@ const ForgotPassword = () => {
   });
   const onSubmit = (data: ForgotPasswordProf) => {
     // TODO: forgot password
+    // eslint-disable-next-line no-console
     console.log(data);
   };
   return (
-    <Container h='100vh' size='' bg='var(--mantine-color-gray-light)'>
-      <Container pt='5rem'>
-        <Container size='xs' p={0} bg='white' style={{ borderRadius: "4px" }}>
-          <Center>
-            <Stack gap='1rem' p='2rem'>
-              <Center fz='1.4rem'>Reset Password</Center>
-              <div>Re-Password with C-Booking.</div>
-            </Stack>
+    <AuthLayout>
+      <Box>
+        <Text style={{ textAlign: "center" }}>Re-Password with C-Booking.</Text>
+        <Card withBorder shadow='md' radius={10} p='2rem' mt='1rem'>
+          <Center bg='teal.1' h='3rem' px='1rem' mb='xs' style={{ borderRadius: "4px" }} fz='sm'>
+            Enter your Email and instructions will be sent to you!
           </Center>
-          <Stack p='2rem'>
-            <Center bg='teal.1' h='3rem' style={{ borderRadius: "4px" }}>
-              Enter your Email and instructions will be sent to you!
-            </Center>
-            <form onSubmit={form.onSubmit((values) => onSubmit(values))}>
-              <TextInput label='Email' placeholder={"Enter email"} {...form.getInputProps("email")} />
-              <Group justify='flex-end' mt='xl'>
-                <Button type='submit'>Reset</Button>
-              </Group>
-            </form>
-          </Stack>
-        </Container>
-        <Center mt='2rem'>
+          <form onSubmit={form.onSubmit((values) => onSubmit(values))}>
+            <TextInput label='Email' placeholder={"Enter email"} {...form.getInputProps("email")} />
+            <Group justify='flex-end' mt='xs'>
+              <Button type='submit'>Reset</Button>
+            </Group>
+          </form>
+        </Card>
+        <Center mt='1rem'>
           Remember It ?&nbsp;
           <Anchor href='/login' underline='never'>
             Sign In here
           </Anchor>
         </Center>
-      </Container>
-    </Container>
+      </Box>
+    </AuthLayout>
   );
 };
 export default ForgotPassword;
