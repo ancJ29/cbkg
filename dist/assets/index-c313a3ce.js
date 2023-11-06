@@ -1,0 +1,1 @@
+import{j as r}from"./index-85fbb9fb.js";import{C as o}from"./Center-e5bde241.js";import{B as t}from"./polymorphic-factory-b0bb245f.js";const m=()=>r.jsx(o,{h:"100%",children:r.jsx(t,{w:"30vw",ta:"center",children:"Dashboard"})});export{m as default};

@@ -1,4 +1,5 @@
-import { Anchor, Button, Center, Container, Group, Stack, TextInput } from "@mantine/core";
+import TextInput from "@/components/common/TextInput";
+import { Anchor, Box, Button, Card, Center, Container, Group, Stack, Text, Title } from "@mantine/core";
 import { useForm, zodResolver } from "@mantine/form";
 import { z } from "zod";
 
@@ -16,20 +17,27 @@ const ForgotPassword = () => {
   });
   const onSubmit = (data: ForgotPasswordProf) => {
     // TODO: forgot password
+    // eslint-disable-next-line no-console
     console.log(data);
   };
   return (
-    <Container h='100vh' size='' bg='var(--mantine-color-gray-light)'>
-      <Container pt='5rem'>
-        <Container size='xs' p={0} bg='white' style={{ borderRadius: "4px" }}>
+    <Box h='100vh'  px={10}>
+      <Center h='100%'>
+        <Container>
           <Center>
             <Stack gap='1rem' p='2rem'>
-              <Center fz='1.4rem'>Reset Password</Center>
-              <div>Re-Password with C-Booking.</div>
+              <Center>
+                <Title fz='2.6rem' fw={900}>
+                  C-booking Admin
+                </Title>
+              </Center>
+              <Center>
+                <Text>Re-Password with C-Booking.</Text>
+              </Center>
             </Stack>
           </Center>
-          <Stack p='2rem'>
-            <Center bg='teal.1' h='3rem' style={{ borderRadius: "4px" }}>
+          <Card withBorder shadow='md' radius={10} p='2rem'>
+            <Center bg='teal.1' h='3rem' px='1rem' style={{ borderRadius: "4px" }}>
               Enter your Email and instructions will be sent to you!
             </Center>
             <form onSubmit={form.onSubmit((values) => onSubmit(values))}>
@@ -38,16 +46,16 @@ const ForgotPassword = () => {
                 <Button type='submit'>Reset</Button>
               </Group>
             </form>
-          </Stack>
+          </Card>
+          <Center mt='2rem'>
+            Remember It ?&nbsp;
+            <Anchor href='/login' underline='never'>
+              Sign In here
+            </Anchor>
+          </Center>
         </Container>
-        <Center mt='2rem'>
-          Remember It ?&nbsp;
-          <Anchor href='/login' underline='never'>
-            Sign In here
-          </Anchor>
-        </Center>
-      </Container>
-    </Container>
+      </Center>
+    </Box>
   );
 };
 export default ForgotPassword;

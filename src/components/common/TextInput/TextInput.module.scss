@@ -1,0 +1,14 @@
+.input {
+  padding: 0.8rem;
+  border: 0.0625rem solid #ced4da;
+  color: black;
+  &:focus {
+    border: 0.0625rem solid black;
+  }
+  &::placeholder {
+    color: #ced4da;
+  }
+}
+.label {
+  font-weight: normal;
+}

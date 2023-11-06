@@ -3,3 +3,18 @@ body,
 label {
   font-family: "Roboto", sans-serif;
 }
+
+body {
+  background: linear-gradient(to top, rgb(223, 233, 243) 0%, white 100%);
+  color: var(--text-primary);
+}
+
+a {
+  text-decoration: none;
+}
+
+@media only screen and (max-width: 600px) {
+  h1 {
+    font-size: 2rem!important;
+  }
+}

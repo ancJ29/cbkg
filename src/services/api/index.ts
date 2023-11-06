@@ -20,11 +20,12 @@ export default async function callApi<T>({
       data: { action, params },
       headers: {
         "Content-Type": "application/json",
-        Authorization: token ? `Bearer ${token}` : undefined,
+        "Authorization": token ? `Bearer ${token}` : undefined,
       },
     });
     return res.status < 400 ? res.data : defaultValue || undefined;
   } catch (error) {
+    // eslint-disable-next-line no-console
     console.error("Request failed with status code", error);
   }
   return defaultValue || undefined;
