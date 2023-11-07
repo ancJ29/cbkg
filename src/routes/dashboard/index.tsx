@@ -1,10 +1,12 @@
+import useTranslation from "@/hooks/useTranslation";
 import { Box, Center } from "@mantine/core";
 
 const Dashboard = () => {
+  const t = useTranslation();
   return (
-    <Center w={"100vw"} h={"100vh"} bg='var(--mantine-color-white)'>
+    <Center bg='gray.1' w='100%' h='100%'>
       <Box w={"30vw"} ta={"center"}>
-        Dashboard
+        {t("Dashboard")}
       </Box>
     </Center>
   );
