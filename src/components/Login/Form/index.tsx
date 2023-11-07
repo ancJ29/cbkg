@@ -4,18 +4,11 @@ import useTranslation from "@/hooks/useTranslation";
 import callApi from "@/services/api";
 import useAuthStore from "@/stores/auth.store";
 import { Anchor, Button, Card, Center, Checkbox, Flex, Group, Stack, Text } from "@mantine/core";
-import { useForm, zodResolver } from "@mantine/form";
+import { useForm } from "@mantine/form";
 import { IconLock } from "@tabler/icons-react";
 import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { z } from "zod";
-
-const schema = z.object({
-  password: z.string().min(1, { message: "Please enter password" }),
-  name: z.string().min(1, { message: "Please enter Email" }),
-});
-const resolver = zodResolver(schema);
-type LoginProps = z.infer<typeof schema>;
 
 const LoginForm = () => {
   const t = useTranslation();
@@ -25,7 +18,10 @@ const LoginForm = () => {
       name: "",
       password: "",
     },
-    validate: resolver,
+    validate: {
+      name: (value) => (value.length < 1 ? t("Please enter Email") : null),
+      password: (value) => (value.length < 1 ? t("Please enter Password") : null),
+    },
   });
   const navigate = useNavigate();
   const { setToken } = useAuthStore();
@@ -86,3 +82,9 @@ const LoginForm = () => {
 };
 
 export default LoginForm;
+
+const schema = z.object({
+  password: z.string(),
+  name: z.string(),
+});
+type LoginProps = z.infer<typeof schema>;

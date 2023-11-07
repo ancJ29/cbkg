@@ -5,17 +5,11 @@ import AuthLayout from "@/components/layout/Auth";
 import useTranslation from "@/hooks/useTranslation";
 import callApi from "@/services/api";
 import { Anchor, Box, Button, Card, Center, Group } from "@mantine/core";
-import { useForm, zodResolver } from "@mantine/form";
+import { useForm } from "@mantine/form";
 import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { z } from "zod";
 
-const schema = z.object({
-  username: z.string().min(1, { message: "Please enter Username" }),
-  password: z.string().min(1, { message: "Please enter Password" }),
-});
-const resolver = zodResolver(schema);
-type RegisterProf = z.infer<typeof schema>;
 const Register = () => {
   const t = useTranslation();
   const navigate = useNavigate();
@@ -24,7 +18,10 @@ const Register = () => {
       username: "",
       password: "",
     },
-    validate: resolver,
+    validate: {
+      username: (value) => (value.length < 1 ? t("Please enter Username") : null),
+      password: (value) => (value.length < 1 ? t("Please enter Password") : null),
+    },
   });
   const onSubmit = useCallback(
     async (value: RegisterProf) => {
@@ -75,3 +72,9 @@ const Register = () => {
   );
 };
 export default Register;
+
+const schema = z.object({
+  username: z.string(),
+  password: z.string(),
+});
+type RegisterProf = z.infer<typeof schema>;
