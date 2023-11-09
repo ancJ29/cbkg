@@ -1,8 +1,9 @@
 import useAuthStore from "@/stores/auth.store";
-import { Box, Card, Drawer, Flex, Stack, Title } from "@mantine/core";
+import { Card, Center, Drawer, Flex, Stack, Title } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { IconLogout, IconSettings } from "@tabler/icons-react";
 import LanguageSelector from "../LanguageSelector";
+import { Logo } from "../Logo";
 
 const AdminHeader = ({ title, burger }: { title?: string; burger?: React.ReactNode }) => {
   const { removeToken } = useAuthStore();
@@ -11,12 +12,12 @@ const AdminHeader = ({ title, burger }: { title?: string; burger?: React.ReactNo
   return (
     <Card>
       <Flex display='flex' align='stretch' justify='space-between'>
-        <Box display='flex'>
+        <Center>
           {burger || ""}
           <Title pl='2rem' size='1.2rem'>
-            {title || "C-booking Admin"}
+            {title || <Logo />}
           </Title>
-        </Box>
+        </Center>
         <Flex gap='0.2rem' align='center'>
           <IconSettings size='1.25rem' onClick={open} />
         </Flex>

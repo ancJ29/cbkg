@@ -1,23 +1,7 @@
+import { AuthStore, userSchema } from "@/types/auth";
 import jwtDecode from "jwt-decode";
 import z from "zod";
 import { create } from "zustand";
-
-type AuthStore = {
-  token: string;
-  user: User | null;
-  loadToken: () => void;
-  setToken: (token: string) => void;
-  removeToken: () => void;
-};
-
-const userSchema = z.object({
-  id: z.string(),
-  name: z.string(),
-});
-
-const payloadSchema = z.object({ payload: userSchema });
-
-type User = z.infer<typeof userSchema>;
 
 const useAuthStore = create<AuthStore>((set, get) => ({
   token: "",
@@ -28,7 +12,7 @@ const useAuthStore = create<AuthStore>((set, get) => ({
     get().setToken(token || "");
   },
 
-  setToken: (token) => {
+  setToken: (token: string) => {
     if (token) {
       const user = _decode(token);
       set(() => (user ? { user, token } : { user: null, token: "" }));
@@ -43,6 +27,8 @@ const useAuthStore = create<AuthStore>((set, get) => ({
 }));
 
 export default useAuthStore;
+
+const payloadSchema = z.object({ payload: userSchema });
 
 function _decode(token: string) {
   const data = jwtDecode(token);

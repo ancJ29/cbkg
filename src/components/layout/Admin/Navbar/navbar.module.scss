@@ -1,0 +1,10 @@
+.item {
+  padding: 1rem 1rem;
+  display: flex;
+  gap: 1rem;
+  text-decoration: none;
+
+  &:hover {
+    background: #f8f9fa;
+  }
+}

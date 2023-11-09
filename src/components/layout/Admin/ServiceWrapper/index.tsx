@@ -1,6 +1,7 @@
 import { AppShell, Box, Burger } from "@mantine/core";
 import AdminHeader from "../AdminHeader";
 import { useDisclosure } from "@mantine/hooks";
+import Navbar from "../Navbar";
 
 type Props = {
   children: React.ReactNode;
@@ -18,9 +19,7 @@ const ServiceWrapper = ({ children, title }: Props) => {
         breakpoint: "sm",
         collapsed: { mobile: !mobileOpened, desktop: !desktopOpened },
       }}
-      sx={{
-        minHeight: "100vh",
-      }}
+      mih='100vh'
     >
       <AppShell.Header withBorder={false}>
         <AdminHeader
@@ -34,7 +33,7 @@ const ServiceWrapper = ({ children, title }: Props) => {
         />
       </AppShell.Header>
       <AppShell.Navbar withBorder>
-        <></>
+        <Navbar />
       </AppShell.Navbar>
       <AppShell.Main bg='linear-gradient(to top, rgb(223, 233, 243) 0%, white 100%)' h={"100vh"}>
         {children}
