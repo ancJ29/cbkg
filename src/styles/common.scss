@@ -6,8 +6,7 @@ label {
   font-family: "Quicksand", sans-serif;
 }
 
-@media only screen and (max-width: 600px) {
-  h1 {
-    font-size: 2rem !important;
-  }
+a,
+a:hover {
+  text-decoration: none;
 }

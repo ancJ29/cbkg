@@ -1,0 +1,5 @@
+{
+  "ADMIN": ["Reservation Management", "Store Management", "Customer Management", "Account Management"],
+  "STAFF": ["Reservation Management"],
+  "MANAGER": ["Reservation Management", "Store Management", "Customer Management", "Account Management"]
+}

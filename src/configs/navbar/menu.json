@@ -1,0 +1,22 @@
+{
+  "Reservation Management": {
+    "label": "Reservation Management",
+    "icon": "table",
+    "url": "/table-reservation-management"
+  },
+  "Store Management": {
+    "label": "Store Management",
+    "icon": "store",
+    "url": "/store-management"
+  },
+  "Customer Management": {
+    "label": "Customer Management",
+    "icon": "customer",
+    "url": "/customer-management"
+  },
+  "Account Management": {
+    "label": "Account Management",
+    "icon": "account",
+    "url": "/account-management"
+  }
+}

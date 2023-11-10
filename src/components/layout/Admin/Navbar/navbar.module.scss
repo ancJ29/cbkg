@@ -1,0 +1,9 @@
+.item {
+  padding: 1rem 1rem;
+  display: flex;
+  gap: 1rem;
+
+  &:hover {
+    background: #f8f9fa;
+  }
+}

@@ -3,14 +3,8 @@ import TextInput from "@/components/common/TextInput";
 import AuthLayout from "@/components/layout/Auth";
 import useTranslation from "@/hooks/useTranslation";
 import { Anchor, Box, Button, Card, Center, Group } from "@mantine/core";
-import { useForm, zodResolver } from "@mantine/form";
+import { useForm } from "@mantine/form";
 import { z } from "zod";
-
-const schema = z.object({
-  email: z.string().min(1, { message: "Please enter Email" }),
-});
-const resolver = zodResolver(schema);
-type ForgotPasswordProp = z.infer<typeof schema>;
 
 const ForgotPassword = () => {
   const t = useTranslation();
@@ -19,13 +13,16 @@ const ForgotPassword = () => {
     initialValues: {
       email: "",
     },
-    validate: resolver,
+    validate: {
+      email: (value) => (value.length < 1 ? t("Please enter Email") : null),
+    },
   });
   const onSubmit = (data: ForgotPasswordProp) => {
     // TODO: forgot password
     // eslint-disable-next-line no-console
     console.log(data);
   };
+
   return (
     <AuthLayout>
       <Box>
@@ -51,4 +48,10 @@ const ForgotPassword = () => {
     </AuthLayout>
   );
 };
+
 export default ForgotPassword;
+
+const schema = z.object({
+  email: z.string().min(1, { message: "Please enter Email" }),
+});
+type ForgotPasswordProp = z.infer<typeof schema>;
