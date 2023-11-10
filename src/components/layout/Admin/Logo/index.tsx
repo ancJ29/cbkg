@@ -1,11 +1,5 @@
 import { Anchor, Flex, Text } from "@mantine/core";
-
-interface Props {
-  width?: string;
-  height?: string;
-}
-
-export const Logo: React.FC<Props> = () => {
+const Logo = () => {
   return (
     <Flex direction='row' align='center' gap={4}>
       <Anchor href='/dashboard' style={{ whiteSpace: "nowrap" }}>
@@ -19,3 +13,4 @@ export const Logo: React.FC<Props> = () => {
     </Flex>
   );
 };
+export default Logo;

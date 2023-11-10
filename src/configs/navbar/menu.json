@@ -1,8 +1,13 @@
 {
+  "Dashboard": {
+    "label": "Dashboard",
+    "icon": "home",
+    "url": "/dashboard"
+  },
   "Reservation Management": {
     "label": "Reservation Management",
     "icon": "table",
-    "url": "/table-reservation-management"
+    "url": "/reservation-management"
   },
   "Store Management": {
     "label": "Store Management",

@@ -16,12 +16,56 @@ type Config = {
 const ServiceWrapper = lazy(() => import("@/components/layout/Admin/ServiceWrapper"));
 const componentMap: Record<string, LazyExoticComponent> = {
   Dashboard: lazy(() => import("@/routes/dashboard")),
+  CustomerManagement: lazy(() => import("@/routes/customer-management")),
+  ReservationManagement: lazy(() => import("@/routes/reservation-management")),
+  StoreManagement: lazy(() => import("@/routes/store-management")),
+  AccountManagement: lazy(() => import("@/routes/account-management")),
 };
 
 const configs: Config[] = [
   {
     path: "/dashboard",
     element: "Dashboard",
+    wrapper: {
+      element: ServiceWrapper as Wrapper,
+      props: {
+        title: "",
+      },
+    },
+  },
+  {
+    path: "/customer-management",
+    element: "CustomerManagement",
+    wrapper: {
+      element: ServiceWrapper as Wrapper,
+      props: {
+        title: "",
+      },
+    },
+  },
+  {
+    path: "/reservation-management",
+    element: "ReservationManagement",
+    wrapper: {
+      element: ServiceWrapper as Wrapper,
+      props: {
+        title: "",
+      },
+    },
+  },
+  {
+    path: "/store-management",
+    element: "StoreManagement",
+    wrapper: {
+      element: ServiceWrapper as Wrapper,
+      props: {
+        title: "",
+      },
+    },
+  },
+  {
+    path: "/account-management",
+    element: "AccountManagement",
     wrapper: {
       element: ServiceWrapper as Wrapper,
       props: {

@@ -26,7 +26,7 @@ const ServiceWrapper = ({ children, title }: Props) => {
       <AppShell.Header withBorder={false}>
         <AdminHeader title={title} burger={<Burger opened={open} onClick={toggle} size='sm' />} />
       </AppShell.Header>
-      <AppShell.Navbar withBorder>{<Navbar display={!open} />}</AppShell.Navbar>
+      <AppShell.Navbar withBorder>{<Navbar display={!open} onClick={() => isMobile && toggle()} />}</AppShell.Navbar>
       <AppShell.Main bg='linear-gradient(to top, rgb(223, 233, 243) 0%, white 100%)' h={"100vh"}>
         {children}
       </AppShell.Main>
