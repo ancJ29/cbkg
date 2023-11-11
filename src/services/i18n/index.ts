@@ -1,10 +1,15 @@
 import en from "./lang/en.json";
 import vi from "./lang/vi.json";
-export const dictionaryList: Record<string, Record<string, string>> = {
+
+type Dictionary = Record<string, string>;
+
+export const dictionaryList: Record<string, Dictionary> = {
   en,
   vi,
 };
+
 export const languageOptions = {
   en: "English",
+  /* cspell:disable-next-line */
   vi: "Tiếng Việt",
 };

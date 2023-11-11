@@ -5,10 +5,11 @@ const AuthLayout = ({ children }: { children?: React.ReactNode }) => {
     <Center
       style={{
         minHeight: "100vh",
-        background: "linear-gradient(to top, rgb(223, 233, 243) 0%, white 100%)",
+        background:
+          "linear-gradient(to top, rgb(223, 233, 243) 0%, white 100%)",
       }}
     >
-      <Container w={480} size='xs' pb={16}>
+      <Container w={480} size="xs" pb={16}>
         <Center>
           <Title fz={42} fw={900}>
             C-Booking Admin

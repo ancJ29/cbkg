@@ -1,8 +1,17 @@
 {
-  "cSpell.words": ["arrowParens", "mantine", "tabler"],
+  "cSpell.ignorePaths": [
+    "./src/services/i18n/lang/vi.json",
+  ],
+  "cSpell.words": [
+    "arrowParens",
+    "mantine",
+    "tabler",
+    "usehooks"
+  ],
+  "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
     "source.organizeImports": true,
     "source.addMissingImports": true,
     "source.removeUnusedImports": true
-  }
+  },
 }

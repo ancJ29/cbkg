@@ -7,6 +7,6 @@
   "quoteProps": "consistent",
   "useTabs": false,
   "singleQuote": false,
-  "printWidth": 120,
-  "jsxSingleQuote": true
+  "printWidth": 70,
+  "jsxSingleQuote": false
 }

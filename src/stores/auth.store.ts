@@ -1,48 +1,43 @@
+import { AuthStore, userSchema } from "@/types/auth";
 import jwtDecode from "jwt-decode";
 import z from "zod";
 import { create } from "zustand";
-
-type AuthStore = {
-  token: string;
-  user: User | null;
-  loadToken: () => void;
-  setToken: (token: string) => void;
-  removeToken: () => void;
-};
-
-const userSchema = z.object({
-  id: z.string(),
-  name: z.string(),
-});
-
-const payloadSchema = z.object({ payload: userSchema });
-
-type User = z.infer<typeof userSchema>;
 
 const useAuthStore = create<AuthStore>((set, get) => ({
   token: "",
   user: null,
 
   loadToken: () => {
-    const token = localStorage.getItem("token");
+    const token =
+      localStorage.getItem("token") ||
+      sessionStorage.getItem("token");
     get().setToken(token || "");
   },
 
-  setToken: (token) => {
+  setToken: (token: string, remember?: boolean) => {
     if (token) {
       const user = _decode(token);
       set(() => (user ? { user, token } : { user: null, token: "" }));
-      user && localStorage.setItem("token", token);
+      if (user) {
+        remember
+          ? localStorage.setItem("token", token)
+          : sessionStorage.setItem("token", token);
+      }
     }
   },
 
   removeToken: () => {
     set(() => ({ user: null, token: "" }));
     localStorage.removeItem("token");
+    sessionStorage.removeItem("token");
   },
 }));
 
 export default useAuthStore;
+
+const payloadSchema = z.object({
+  payload: userSchema,
+});
 
 function _decode(token: string) {
   const data = jwtDecode(token);

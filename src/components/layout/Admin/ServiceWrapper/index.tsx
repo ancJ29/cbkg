@@ -1,43 +1,53 @@
-import { AppShell, Box, Burger } from "@mantine/core";
-import AdminHeader from "../AdminHeader";
+import { AppShell, Burger } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
+import { isMobile } from "react-device-detect";
+import AdminHeader from "../AdminHeader";
+import Navbar from "../Navbar";
 
 type Props = {
   children: React.ReactNode;
   title?: string;
 };
 
-const ServiceWrapper = ({ children, title }: Props) => {
-  const [mobileOpened, { toggle: toggleMobile }] = useDisclosure();
-  const [desktopOpened, { toggle: toggleDesktop }] = useDisclosure(true);
+const ServiceWrapper = ({ children }: Props) => {
+  const [open, { toggle }] = useDisclosure(isMobile ? false : true);
+
   return (
     <AppShell
-      header={{ height: 60 }}
+      mih="100vh"
+      header={{ height: 70 }}
       navbar={{
-        width: 300,
+        width: open ? 300 : 60,
         breakpoint: "sm",
-        collapsed: { mobile: !mobileOpened, desktop: !desktopOpened },
-      }}
-      sx={{
-        minHeight: "100vh",
+        collapsed: {
+          mobile: !open,
+          desktop: false,
+        },
       }}
     >
       <AppShell.Header withBorder={false}>
         <AdminHeader
-          title={title}
-          burger={
-            <Box>
-              <Burger opened={mobileOpened} onClick={toggleMobile} hiddenFrom='sm' size='sm' />
-              <Burger opened={desktopOpened} onClick={toggleDesktop} visibleFrom='sm' size='sm' />
-            </Box>
-          }
+          burger={<Burger opened={open} onClick={toggle} size="sm" />}
         />
       </AppShell.Header>
-      <AppShell.Navbar withBorder>
-        <></>
+      <AppShell.Navbar>
+        {
+          <Navbar
+            display={!open}
+            onClick={() => isMobile && toggle()}
+          />
+        }
       </AppShell.Navbar>
-      <AppShell.Main bg='linear-gradient(to top, rgb(223, 233, 243) 0%, white 100%)' h={"100vh"}>
-        {children}
+      <AppShell.Main style={{ display: "flex" }}>
+        <div
+          style={{
+            width: "100%",
+            flex: "grow",
+            overflow: "scroll",
+          }}
+        >
+          {children}
+        </div>
       </AppShell.Main>
     </AppShell>
   );

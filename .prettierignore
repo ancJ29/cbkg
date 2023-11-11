@@ -1,2 +1,11 @@
 node_modules/
 dist/
+package.json
+vite.config.ts
+tsconfig.json
+index.html
+.vscode/
+.eslintrc.js
+.prettierrc
+src/services/i18n/lang/en.json
+src/services/i18n/lang/es.json

@@ -4,18 +4,19 @@ import TextInput from "@/components/common/TextInput";
 import AuthLayout from "@/components/layout/Auth";
 import useTranslation from "@/hooks/useTranslation";
 import callApi from "@/services/api";
-import { Anchor, Box, Button, Card, Center, Group } from "@mantine/core";
-import { useForm, zodResolver } from "@mantine/form";
+import {
+  Anchor,
+  Box,
+  Button,
+  Card,
+  Center,
+  Group,
+} from "@mantine/core";
+import { useForm } from "@mantine/form";
 import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { z } from "zod";
 
-const schema = z.object({
-  username: z.string().min(1, { message: "Please enter Username" }),
-  password: z.string().min(1, { message: "Please enter Password" }),
-});
-const resolver = zodResolver(schema);
-type RegisterProf = z.infer<typeof schema>;
 const Register = () => {
   const t = useTranslation();
   const navigate = useNavigate();
@@ -24,7 +25,12 @@ const Register = () => {
       username: "",
       password: "",
     },
-    validate: resolver,
+    validate: {
+      username: (value) =>
+        value.length < 1 ? t("Please enter Username") : null,
+      password: (value) =>
+        value.length < 1 ? t("Please enter Password") : null,
+    },
   });
   const onSubmit = useCallback(
     async (value: RegisterProf) => {
@@ -47,26 +53,34 @@ const Register = () => {
   return (
     <AuthLayout>
       <Box>
-        <TextCenter>{t("Get your free c-booking account now")}</TextCenter>
-        <Card withBorder shadow='md' radius={10} p='2rem' mt='1rem'>
-          <form onSubmit={form.onSubmit((values) => onSubmit(values))}>
-            <TextInput label={t("Username")} placeholder={t("Enter Username")} {...form.getInputProps("username")} />
+        <TextCenter>
+          {t("Get your free c-booking account now")}
+        </TextCenter>
+        <Card withBorder shadow="md" radius={10} p="2rem" mt="1rem">
+          <form
+            onSubmit={form.onSubmit((values) => onSubmit(values))}
+          >
+            <TextInput
+              label={t("Username")}
+              placeholder={t("Enter Username")}
+              {...form.getInputProps("username")}
+            />
             <PasswordInput
               label={t("Password")}
               placeholder={t("Enter Password")}
               {...form.getInputProps("password")}
             />
-            <Group justify='flex-start' mt='xl'>
-              <Button w='100%' type='submit'>
+            <Group justify="flex-start" mt="xl">
+              <Button w="100%" type="submit">
                 {t("Register")}
               </Button>
             </Group>
           </form>
         </Card>
 
-        <Center mt='2rem'>
+        <Center mt="2rem">
           {t("Already have an account")} ?&nbsp;
-          <Anchor href='/login' underline='never'>
+          <Anchor href="/login" underline="never">
             {t("Sign in")}
           </Anchor>
         </Center>
@@ -75,3 +89,9 @@ const Register = () => {
   );
 };
 export default Register;
+
+const schema = z.object({
+  username: z.string(),
+  password: z.string(),
+});
+type RegisterProf = z.infer<typeof schema>;
