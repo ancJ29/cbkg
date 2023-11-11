@@ -2,8 +2,10 @@ import { lazy } from "react";
 import { Navigate } from "react-router-dom";
 
 type GenericProps = Record<string, unknown>;
-type Wrapper = React.LazyExoticComponent<(props?: GenericProps) => React.JSX.Element>;
-type LazyExoticComponent = React.LazyExoticComponent<() => React.JSX.Element>;
+type RFC = (props?: GenericProps) => React.JSX.Element;
+type NoPropsRFC = () => React.JSX.Element;
+type Wrapper = React.LazyExoticComponent<RFC>;
+type LazyExoticComponent = React.LazyExoticComponent<NoPropsRFC>;
 type Config = {
   path: string;
   element: string | (() => JSX.Element);
@@ -13,9 +15,21 @@ type Config = {
   };
 };
 
-const ServiceWrapper = lazy(() => import("@/components/layout/Admin/ServiceWrapper"));
+const ServiceWrapper = lazy(
+  () => import("@/components/layout/Admin/ServiceWrapper"),
+);
 const componentMap: Record<string, LazyExoticComponent> = {
   Dashboard: lazy(() => import("@/routes/dashboard")),
+  CustomerManagement: lazy(
+    () => import("@/routes/customer-management"),
+  ),
+  ReservationManagement: lazy(
+    () => import("@/routes/reservation-management"),
+  ),
+  StoreManagement: lazy(() => import("@/routes/store-management")),
+  AccountManagement: lazy(
+    () => import("@/routes/account-management"),
+  ),
 };
 
 const configs: Config[] = [
@@ -30,15 +44,58 @@ const configs: Config[] = [
     },
   },
   {
+    path: "/customer-management",
+    element: "CustomerManagement",
+    wrapper: {
+      element: ServiceWrapper as Wrapper,
+      props: {
+        title: "",
+      },
+    },
+  },
+  {
+    path: "/reservation-management",
+    element: "ReservationManagement",
+    wrapper: {
+      element: ServiceWrapper as Wrapper,
+      props: {
+        title: "",
+      },
+    },
+  },
+  {
+    path: "/store-management",
+    element: "StoreManagement",
+    wrapper: {
+      element: ServiceWrapper as Wrapper,
+      props: {
+        title: "",
+      },
+    },
+  },
+  {
+    path: "/account-management",
+    element: "AccountManagement",
+    wrapper: {
+      element: ServiceWrapper as Wrapper,
+      props: {
+        title: "",
+      },
+    },
+  },
+  {
     path: "/*",
-    element: () => <Navigate to='/dashboard' />,
+    element: () => <Navigate to="/dashboard" />,
   },
 ];
 
 export default configs.map(_buildRouteConfig);
 
 function _buildRouteConfig(config: Config) {
-  const Component = typeof config.element === "string" ? componentMap[config.element] : config.element;
+  const Component =
+    typeof config.element === "string"
+      ? componentMap[config.element]
+      : config.element;
   return {
     path: config.path,
     element: config.wrapper ? (

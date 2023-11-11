@@ -1,0 +1,1 @@
+import{x as e,C as a,B as n}from"./index-c7e6a1d0.js";import{u as r}from"./useTranslation-ee46f7e0.js";const i=()=>{const t=r();return e.jsx(a,{bg:"gray.1",w:"100%",h:"100%",children:e.jsx(n,{w:"30vw",ta:"center",children:t("Reservation Management")})})};export{i as default};

@@ -1,0 +1,1 @@
+import{x as r,C as a,B as t}from"./index-c7e6a1d0.js";import{u as o}from"./useTranslation-ee46f7e0.js";const x=()=>{const s=o();return r.jsx(a,{bg:"gray.1",w:"100%",h:"100%",children:r.jsx(t,{w:"30vw",ta:"center",children:s("Dashboard")})})};export{x as default};
