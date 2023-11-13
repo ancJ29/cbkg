@@ -1,14 +1,14 @@
 import { createTheme } from "@mantine/core";
 
 export const theme = createTheme({
+  fontFamily: "Quicksand",
   headings: {
+    fontWeight: "900",
     sizes: {
       h1: {
         fontSize: "2.6rem",
       },
     },
-    fontFamily: "Quicksand",
-    fontWeight: "900",
   },
   primaryColor: "more-dark",
   defaultRadius: "sm",

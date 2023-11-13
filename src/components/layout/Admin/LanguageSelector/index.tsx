@@ -1,20 +1,75 @@
 import { LanguageContext } from "@/contexts/LanguageContext";
 import { languageOptions } from "@/services/i18n";
-import { ChangeEvent, useContext } from "react";
+import {
+  Anchor,
+  Button,
+  Flex,
+  Image,
+  Popover,
+  Text,
+} from "@mantine/core";
+import { useContext, useState } from "react";
+import classes from "./LanguageSelector.module.scss";
+
 const LanguageSelector = () => {
   const { language, onChangeLanguage } = useContext(LanguageContext);
-  const handleLanguageChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    onChangeLanguage && onChangeLanguage(e.target.value);
-  };
+  const [opened, setOpened] = useState(false);
 
+  const handleLanguageChange = (value: string | null) => {
+    if (language === value) {
+      return;
+    }
+    setOpened(false);
+    onChangeLanguage && onChangeLanguage(value || "vi");
+  };
   return (
-    <select onChange={handleLanguageChange} value={language}>
-      {Object.entries(languageOptions).map(([id, name]) => (
-        <option key={id} value={id}>
-          {name}
-        </option>
-      ))}
-    </select>
+    <Flex align="center">
+      <Popover
+        opened={opened}
+        width={300}
+        trapFocus
+        position="bottom"
+        withArrow
+        shadow="md"
+      >
+        <Popover.Target>
+          <Button
+            onClick={() => setOpened(!opened)}
+            p={0}
+            h={40}
+            w={40}
+            radius={999}
+            className={classes.btnIcon}
+          >
+            <Image
+              radius="lg"
+              h={20}
+              w={20}
+              src={`/flags/${language}.svg`}
+              alt={language}
+            />
+          </Button>
+        </Popover.Target>
+        <Popover.Dropdown p={0} w={"auto"}>
+          {Object.entries(languageOptions).map(([id, name]) => (
+            <Anchor
+              key={id}
+              onClick={() => handleLanguageChange(id)}
+              className={classes.item}
+            >
+              <Image
+                radius="lg"
+                h={20}
+                w={20}
+                src={`/flags/${id}.svg`}
+                alt={name}
+              />
+              <Text>{name}</Text>
+            </Anchor>
+          ))}
+        </Popover.Dropdown>
+      </Popover>
+    </Flex>
   );
 };
 export default LanguageSelector;

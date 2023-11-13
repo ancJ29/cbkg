@@ -1,10 +1,13 @@
-import { PasswordInput as PasswordInputMantine, PasswordInputProps } from "@mantine/core";
+import {
+  PasswordInput as PasswordInputMantine,
+  PasswordInputProps,
+} from "@mantine/core";
 import classes from "./PasswordInput.module.scss";
 
 const PasswordInput = ({ ...props }: PasswordInputProps) => {
   return (
     <PasswordInputMantine
-      variant='unstyled'
+      variant="unstyled"
       classNames={{
         label: classes.label,
         innerInput: classes.innerInput,

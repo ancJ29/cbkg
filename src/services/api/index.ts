@@ -1,5 +1,6 @@
 import useAuthStore from "@/stores/auth.store";
 import axios from "axios";
+import logger from "../logger";
 
 const base = import.meta.env.BASE_URL;
 
@@ -25,8 +26,7 @@ export default async function callApi<T>({
     });
     return res.status < 400 ? res.data : defaultValue || undefined;
   } catch (error) {
-    // eslint-disable-next-line no-console
-    console.error("Request failed with status code", error);
+    logger.error("Request failed with status code", error);
   }
   return defaultValue || undefined;
 }
