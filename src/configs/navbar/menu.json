@@ -1,0 +1,32 @@
+[
+  {
+    "key": "Dashboard",
+    "label": "Dashboard",
+    "icon": "home",
+    "url": "/dashboard"
+  },
+  {
+    "key": "Reservation Management",
+    "label": "Reservation Management",
+    "icon": "table",
+    "url": "/reservation-management"
+  },
+  {
+    "key": "Store Management",
+    "label": "Store Management",
+    "icon": "store",
+    "url": "/store-management"
+  },
+  {
+    "key": "Customer Management",
+    "label": "Customer Management",
+    "icon": "customer",
+    "url": "/customer-management"
+  },
+  {
+    "key": "Account Management",
+    "label": "Account Management",
+    "icon": "account",
+    "url": "/account-management"
+  }
+]

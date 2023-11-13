@@ -1,13 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap");
 
-html,
-body,
-label {
-  font-family: "Quicksand", sans-serif;
-}
-
-@media only screen and (max-width: 600px) {
-  h1 {
-    font-size: 2rem !important;
-  }
+a,
+a:hover {
+  text-decoration: none;
 }
