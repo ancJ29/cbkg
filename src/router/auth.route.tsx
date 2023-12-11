@@ -26,10 +26,11 @@ const componentMap: Record<string, LazyExoticComponent> = {
   ReservationManagement: lazy(
     () => import("@/routes/reservation-management"),
   ),
-  StoreManagement: lazy(() => import("@/routes/store-management")),
+  BranchManagement: lazy(() => import("@/routes/branch-management")),
   AccountManagement: lazy(
     () => import("@/routes/account-management"),
   ),
+  ChainManagement: lazy(() => import("@/routes/chain-management")),
 };
 
 const configs: Config[] = [
@@ -64,8 +65,8 @@ const configs: Config[] = [
     },
   },
   {
-    path: "/store-management",
-    element: "StoreManagement",
+    path: "/branch-management",
+    element: "BranchManagement",
     wrapper: {
       element: ServiceWrapper as Wrapper,
       props: {
@@ -76,6 +77,16 @@ const configs: Config[] = [
   {
     path: "/account-management",
     element: "AccountManagement",
+    wrapper: {
+      element: ServiceWrapper as Wrapper,
+      props: {
+        title: "",
+      },
+    },
+  },
+  {
+    path: "/chain-management",
+    element: "ChainManagement",
     wrapper: {
       element: ServiceWrapper as Wrapper,
       props: {

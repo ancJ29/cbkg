@@ -6,7 +6,8 @@
     "arrowParens",
     "mantine",
     "tabler",
-    "usehooks"
+    "usehooks",
+    "zustand"
   ],
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {

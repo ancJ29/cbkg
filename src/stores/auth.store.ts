@@ -1,4 +1,4 @@
-import { AuthStore, userSchema } from "@/types/auth";
+import { AuthStore, userSchema } from "@/types";
 import jwtDecode from "jwt-decode";
 import z from "zod";
 import { create } from "zustand";

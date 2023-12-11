@@ -4,6 +4,7 @@ import TextInput from "@/components/common/TextInput";
 import useTranslation from "@/hooks/useTranslation";
 import callApi from "@/services/api";
 import useAuthStore from "@/stores/auth.store";
+import { STATUS_CODE } from "@/types";
 import {
   Anchor,
   Button,
@@ -11,15 +12,17 @@ import {
   Checkbox,
   Flex,
   Group,
+  LoadingOverlay,
   Stack,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { z } from "zod";
 
 const LoginForm = () => {
   const t = useTranslation();
+  const [loaded, setLoaded] = useState(false);
 
   const form = useForm<LoginProps>({
     initialValues: {
@@ -39,23 +42,30 @@ const LoginForm = () => {
 
   const onLogin = useCallback(
     async (value: LoginProps) => {
-      const data = await callApi({
+      setLoaded(true);
+      const res = await callApi({
         params: value,
         action: "login",
       });
-      if (data) {
-        setToken(data.token, value.remember);
+      if (res.status < STATUS_CODE.ERROR) {
+        setToken(res.data.token, value.remember);
         navigate("/dashboard");
       } else {
         form.setErrors({
-          password: t("Email or password is incorrect."),
+          password: t(res.error || "Email or password is incorrect."),
         });
       }
+      setLoaded(false);
     },
     [form, navigate, setToken, t],
   );
   return (
     <Card withBorder shadow="md" radius={10} mt="1rem">
+      <LoadingOverlay
+        visible={loaded}
+        zIndex={1000}
+        overlayProps={{ radius: "sm", blur: 2 }}
+      />
       <Stack gap="xs" p=".5rem" pt={0}>
         <form onSubmit={form.onSubmit(onLogin)}>
           <TextInput

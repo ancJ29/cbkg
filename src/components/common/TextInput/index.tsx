@@ -3,8 +3,20 @@ import {
   TextInputProps,
 } from "@mantine/core";
 import classes from "./TextInput.module.scss";
+interface Props extends TextInputProps {
+  onEnter?: () => void;
+}
 
-const TextInput = ({ ...props }: TextInputProps) => {
+const TextInput = ({ onEnter, ...props }: Props) => {
+  const handleKeyDown = (
+    e: React.KeyboardEvent<HTMLInputElement>,
+  ) => {
+    if (e.key === "Enter" && onEnter) {
+      e.preventDefault();
+      e.stopPropagation();
+      onEnter();
+    }
+  };
   return (
     <TextInputMantine
       variant="unstyled"
@@ -12,6 +24,7 @@ const TextInput = ({ ...props }: TextInputProps) => {
         label: classes.label,
         input: classes.input,
       }}
+      onKeyDown={onEnter ? handleKeyDown : undefined}
       {...props}
     />
   );

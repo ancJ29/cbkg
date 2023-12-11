@@ -2,20 +2,20 @@
   {
     "key": "Dashboard",
     "label": "Dashboard",
-    "icon": "home",
+    "icon": "dashboard",
     "url": "/dashboard"
   },
   {
     "key": "Reservation Management",
     "label": "Reservation Management",
-    "icon": "table",
+    "icon": "kitchen",
     "url": "/reservation-management"
   },
   {
-    "key": "Store Management",
-    "label": "Store Management",
+    "key": "Branch Management",
+    "label": "Branch Management",
     "icon": "store",
-    "url": "/store-management"
+    "url": "/branch-management"
   },
   {
     "key": "Customer Management",
@@ -28,5 +28,11 @@
     "label": "Account Management",
     "icon": "account",
     "url": "/account-management"
+  },
+  {
+    "key": "Chain Management",
+    "label": "Chain Management",
+    "url": "/chain-management",
+    "icon": "home"
   }
 ]
