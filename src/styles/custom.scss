@@ -1,1 +1,56 @@
-// TODO: add custom class here
+@import "@/styles/_variables.scss";
+
+.bdr {
+  &-t {
+    border-top: 1px solid $input-highlight-color;
+  }
+
+  &-b {
+    border-bottom: 1px solid $input-highlight-color;
+  }
+
+  &-f {
+    border: 1px solid $input-highlight-color;
+  }
+}
+
+.p {
+  &-0 {
+    padding: 0;
+  }
+}
+
+.w {
+  &-full {
+    width: 100%;
+  }
+}
+
+.bg {
+  &-main {
+    background-color: $main-color;
+  }
+}
+
+.text {
+  &-main {
+    color: $main-color;
+  }
+}
+
+.cursor {
+  &-pointer {
+    cursor: pointer;
+  }
+}
+
+.align {
+  &-center {
+    align-items: center;
+  }
+}
+.font {
+  &-bold {
+    font-weight: bold;
+  }
+}

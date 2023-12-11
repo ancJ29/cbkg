@@ -1,0 +1,22 @@
+@import "@/styles/_variables.scss";
+
+.tableWrapper {
+  border: 1px solid $input-highlight-color;
+}
+
+.header {
+  display: flex;
+  background-color: $main-color;
+  padding: 10px;
+  color: white;
+}
+
+@media screen and (max-width: 600px) {
+  .tableWrapper {
+    border: none;
+  }
+
+  .header {
+    display: none;
+  }
+}

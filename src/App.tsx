@@ -5,25 +5,57 @@ import authRoutes from "@/router/auth.route";
 import guestRoutes from "@/router/guest.route";
 import useAuthStore from "@/stores/auth.store";
 import { MantineProvider } from "@mantine/core";
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { RouteObject, useRoutes } from "react-router-dom";
+import useUserStore from "./stores/user.store";
+import useChainStore from "./stores/chain.store";
+import useBranchStore from "./stores/branch.store";
 
 const App = () => {
-  const authStore = useAuthStore();
+  const { loadToken, user } = useAuthStore();
   const [loaded, setLoaded] = useState(false);
   const routes = useMemo(() => {
-    return _buildRoutes(loaded, !!authStore.user);
-  }, [authStore.user, loaded]);
+    return _buildRoutes(loaded, !!user);
+  }, [user, loaded]);
+  const { loadUsers } = useUserStore();
+  const { loadChains } = useChainStore();
+  const { loadBranches } = useBranchStore();
 
   useOnMounted(
     useCallback(() => {
       if (loaded) {
         return;
       }
-      authStore.loadToken();
+      loadToken();
       setLoaded(true);
-    }, [authStore, loaded]),
+    }, [loadToken, loaded]),
   );
+
+  const memoizedSetUsers = useCallback(
+    () => loadUsers(),
+    [loadUsers],
+  );
+
+  const memoizedSetChains = useCallback(
+    () => loadChains(),
+    [loadChains],
+  );
+
+  const memoizedSetBranches = useCallback(
+    () => loadBranches(),
+    [loadBranches],
+  );
+
+  useEffect(() => {
+    if (user) {
+      memoizedSetUsers();
+    }
+  }, [user, memoizedSetUsers]);
+
+  useEffect(() => {
+    memoizedSetBranches();
+    memoizedSetChains();
+  }, [memoizedSetBranches, memoizedSetChains]);
 
   return (
     <MantineProvider theme={theme}>
