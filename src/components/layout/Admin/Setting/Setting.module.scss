@@ -1,0 +1,12 @@
+@import "@/styles/_variables.scss";
+
+.item {
+  padding: 0.8rem;
+  display: flex;
+  gap: 1rem;
+  border-radius: 4px;
+
+  &:hover {
+    background: $hover-background-color;
+  }
+}

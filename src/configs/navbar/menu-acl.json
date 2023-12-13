@@ -2,16 +2,29 @@
   "ADMIN": [
     "Dashboard",
     "Reservation Management",
-    "Store Management",
+    "Chain Management",
+    "Branch Management",
     "Customer Management",
     "Account Management"
   ],
-  "STAFF": ["Dashboard", "Reservation Management"],
-  "MANAGER": [
+  "OWNER": [
     "Dashboard",
     "Reservation Management",
-    "Store Management",
+    "Branch Management",
     "Customer Management",
     "Account Management"
-  ]
+  ],
+  "CHAIN_MANAGER": [
+    "Dashboard",
+    "Reservation Management",
+    "Branch Management",
+    "Customer Management",
+    "Account Management"
+  ],
+  "MANAGER": [
+    "Dashboard",
+    "Customer Management",
+    "Account Management"
+  ],
+  "STAFF": ["Dashboard", "Reservation Management"]
 }

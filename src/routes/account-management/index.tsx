@@ -1,14 +1,16 @@
-import useTranslation from "@/hooks/useTranslation";
-import { Box, Center } from "@mantine/core";
+import { Stack } from "@mantine/core";
+import useAuthStore from "@/stores/auth.store";
+import AccountTable from "@/components/AccountManagement/Table";
+import CreateAccount from "@/components/AccountManagement/Create";
 
 const AccountManagement = () => {
-  const t = useTranslation();
+  const { user } = useAuthStore();
+
   return (
-    <Center bg="gray.1" w="100%" h="100%">
-      <Box w={"30vw"} ta={"center"}>
-        {t("Account Management")}
-      </Box>
-    </Center>
+    <Stack gap={10} bg="gray.1" w="100%" h="100%" p={10}>
+      <CreateAccount />
+      {user?.role === "ADMIN" && <AccountTable />}
+    </Stack>
   );
 };
 

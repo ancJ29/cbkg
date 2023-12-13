@@ -1,0 +1,24 @@
+export function uniqueByKey<T, K extends keyof T>(
+  arr: T[],
+  key: string,
+) {
+  return [
+    ...new Map(
+      arr
+        .filter((item) => item[key as K]) // skip invalid items
+        .map((item) => [item[key as K], item]),
+    ).values(),
+  ];
+}
+
+export function sortByKey<T, K extends keyof T>(arr: T[], key: K) {
+  return arr.sort((a, b) => {
+    if (a[key] > b[key]) {
+      return 1;
+    }
+    if (a[key] < b[key]) {
+      return 1;
+    }
+    return 0;
+  });
+}
