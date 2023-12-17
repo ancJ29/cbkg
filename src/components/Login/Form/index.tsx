@@ -2,7 +2,7 @@ import PasswordInput from "@/components/common/PasswordInput";
 import TextCenter from "@/components/common/TextCenter";
 import TextInput from "@/components/common/TextInput";
 import useTranslation from "@/hooks/useTranslation";
-import callApi from "@/services/api";
+import callApi, { isError } from "@/services/api";
 import useAuthStore from "@/stores/auth.store";
 import {
   Anchor,
@@ -39,16 +39,16 @@ const LoginForm = () => {
 
   const onLogin = useCallback(
     async (value: LoginProps) => {
-      const data = await callApi({
+      const res = await callApi({
         params: value,
         action: "login",
       });
-      if (data) {
-        setToken(data.token, value.remember);
+      if (!isError(res)) {
+        setToken(res.data.token, value.remember);
         navigate("/dashboard");
       } else {
         form.setErrors({
-          password: t("Email or password is incorrect."),
+          password: t(res.error || "Email or password is incorrect."),
         });
       }
     },
