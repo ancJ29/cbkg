@@ -2,7 +2,7 @@ import PasswordInput from "@/components/common/PasswordInput";
 import TextCenter from "@/components/common/TextCenter";
 import TextInput from "@/components/common/TextInput";
 import useTranslation from "@/hooks/useTranslation";
-import callApi from "@/services/api";
+import callApi, { isError } from "@/services/api";
 import useAuthStore from "@/stores/auth.store";
 import {
   Anchor,
@@ -13,7 +13,7 @@ import {
   Group,
   Stack,
 } from "@mantine/core";
-import { useForm } from "@mantine/form";
+import { isNotEmpty, useForm } from "@mantine/form";
 import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { z } from "zod";
@@ -28,27 +28,28 @@ const LoginForm = () => {
       remember: false,
     },
     validate: {
-      name: (value) =>
-        value.length < 1 ? t("Please enter Email") : null,
-      password: (value) =>
-        value.length < 1 ? t("Please enter Password") : null,
+      name: isNotEmpty(t("Please enter Email")),
+      password: isNotEmpty(t("Please enter Password")),
     },
+    // TODO: consider for better approach!
+    transformValues: (values) => _transformValues(values),
   });
+
   const navigate = useNavigate();
   const { setToken } = useAuthStore();
 
   const onLogin = useCallback(
     async (value: LoginProps) => {
-      const data = await callApi({
+      const res = await callApi({
         params: value,
         action: "login",
       });
-      if (data) {
-        setToken(data.token, value.remember);
+      if (!isError(res)) {
+        setToken(res.data.token, form.values.remember);
         navigate("/dashboard");
       } else {
         form.setErrors({
-          password: t("Email or password is incorrect."),
+          password: t(res.error || "Email or password is incorrect."),
         });
       }
     },
@@ -96,6 +97,13 @@ export default LoginForm;
 const schema = z.object({
   password: z.string(),
   name: z.string(),
-  remember: z.boolean(),
+  remember: z.boolean().optional(),
 });
 type LoginProps = z.infer<typeof schema>;
+
+function _transformValues(values: LoginProps) {
+  return {
+    name: values.name.toString().trim(),
+    password: values.password.toString().trim(),
+  };
+}

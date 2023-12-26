@@ -1,0 +1,19 @@
+@import "@/styles/_variables.scss";
+
+.input {
+  padding: 0.8rem;
+  border: none;
+  border: 0.0625rem solid $input-highlight-color;
+  height: 2.2rem;
+  border-radius: 4px;
+  width: 100%;
+
+  &::placeholder {
+    color: $input-highlight-color;
+  }
+
+  &:focus-visible {
+    border: none;
+    // border: 0.0625rem solid black !important;
+  }
+}
