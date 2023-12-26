@@ -4,13 +4,17 @@
   padding: 0.8rem;
   border: 0.0625rem solid $input-highlight-color;
   color: black;
+
   &:focus {
     border: 0.0625rem solid black;
   }
+
   &::placeholder {
     color: $input-highlight-color;
   }
 }
+
 .label {
   font-weight: normal;
+  font-size: 16px;
 }

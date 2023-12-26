@@ -1,0 +1,65 @@
+@import "@/styles/_variables.scss";
+
+.chainContainer {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+}
+
+.inputContainer {
+  display: flex;
+  align-items: center;
+
+  .input {
+    min-width: 26rem;
+  }
+
+  p {
+    width: 12rem;
+    font-weight: 600;
+  }
+}
+
+.radioContainer {
+  display: flex;
+  align-items: center;
+  width: 100%;
+
+  p {
+    width: 12rem;
+    font-weight: 600;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .chainContainer,
+  .radioContainer {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .inputContainer,
+  .radioContainer {
+    display: block;
+    align-items: center;
+
+    .input {
+      min-width: 100%;
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .chainContainer {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  .btn {
+    width: 100%;
+  }
+
+  .classNameBox {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
