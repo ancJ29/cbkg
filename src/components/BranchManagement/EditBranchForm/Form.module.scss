@@ -1,0 +1,57 @@
+.inputContainer {
+  display: flex;
+  align-items: center;
+
+  .input,
+  .classNameBox {
+    min-width: 26rem;
+  }
+
+  p {
+    width: 12rem;
+  }
+}
+
+.radioContainer {
+  display: flex;
+  align-items: center;
+  width: 100%;
+
+  p {
+    width: 12rem;
+    font-weight: 600;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .inputContainer {
+    display: block;
+    align-items: center;
+
+    .input {
+      min-width: 100%;
+    }
+  }
+
+  .radioContainer {
+    grid-template-columns: repeat(2, 1fr);
+    display: block;
+    align-items: center;
+
+    .input {
+      min-width: 100%;
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .btn {
+    width: 100%;
+  }
+
+  .classNameBox {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
