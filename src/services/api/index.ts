@@ -1,19 +1,35 @@
 import useAuthStore from "@/stores/auth.store";
-import axios from "axios";
+import useCommonStore from "@/stores/common.store";
+import { ApiResponse } from "@/types/common/api";
+import axios, { AxiosError } from "axios";
 import logger from "../logger";
+
+type ApiError = {
+  status: number;
+  error: string;
+};
 
 const base = import.meta.env.BASE_URL;
 
+enum STATUS_CODE {
+  "SUCCESS" = 200,
+  "ERROR" = 400,
+}
+
+/**
+ * @deprecated should use callApiV2 instead
+ */
 export default async function callApi<T>({
   params,
   action,
-  defaultValue,
 }: {
   action?: string;
   params?: T;
-  defaultValue?: unknown;
-}) {
+}): Promise<ApiResponse> {
+  const { increaseLoadingCounter, decreaseLoadingCounter } =
+    useCommonStore.getState();
   try {
+    increaseLoadingCounter();
     const token = useAuthStore.getState().token;
     const res = await axios({
       method: "POST",
@@ -24,9 +40,26 @@ export default async function callApi<T>({
         "Authorization": token ? `Bearer ${token}` : undefined,
       },
     });
-    return res.status < 400 ? res.data : defaultValue || undefined;
-  } catch (error) {
-    logger.error("Request failed with status code", error);
+    return { status: res.status || 200, data: res.data };
+  } catch (error: unknown) {
+    if (axios.isAxiosError(error)) {
+      const axiosError = error as AxiosError<ApiError>;
+      logger.error("Request failed with status code", axiosError);
+
+      return {
+        status: axiosError.response?.status || 400,
+        error: axiosError.response?.data?.error || "Unknown error",
+      };
+    } else {
+      // Handle non-Axios errors
+      logger.error("Non-Axios error occurred", error);
+      return { status: 400, error: "Unknown error" };
+    }
+  } finally {
+    decreaseLoadingCounter();
   }
-  return defaultValue || undefined;
+}
+
+export function isError(res: ApiResponse) {
+  return STATUS_CODE.ERROR <= res.status || res.data.error;
 }
