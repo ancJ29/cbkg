@@ -22,6 +22,7 @@ const LanguageSelector = () => {
     setOpened(false);
     onChangeLanguage && onChangeLanguage(value || "vi");
   };
+
   return (
     <Flex align="center">
       <Popover
@@ -31,6 +32,7 @@ const LanguageSelector = () => {
         position="bottom"
         withArrow
         shadow="md"
+        onClose={() => setOpened(false)}
       >
         <Popover.Target>
           <Button

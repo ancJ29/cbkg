@@ -7,6 +7,5 @@ export default function useOnMounted(callback: () => void) {
     if (isMounted()) {
       callback();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isMounted]);
+  }, [callback, isMounted]);
 }

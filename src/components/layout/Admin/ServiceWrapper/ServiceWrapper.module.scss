@@ -1,0 +1,11 @@
+.container {
+  width: 100%;
+  flex: grow;
+  height: calc(100vh - 4.5rem);
+}
+
+.mobileContainer {
+  width: 100%;
+  flex: grow;
+  height: auto;
+}
