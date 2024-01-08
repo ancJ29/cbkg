@@ -1,17 +1,32 @@
 {
   "ADMIN": [
-    "Dashboard",
-    "Reservation Management",
-    "Store Management",
-    "Customer Management",
-    "Account Management"
+    "dashboard",
+    "reservation-management",
+    "chain-management",
+    "branch-management",
+    "customer-management",
+    "account-management"
   ],
-  "STAFF": ["Dashboard", "Reservation Management"],
+  "OWNER": [
+    "dashboard",
+    "reservation-management",
+    "chain-management",
+    "branch-management",
+    "customer-management",
+    "account-management"
+  ],
+  "CHAIN_MANAGER": [
+    "dashboard",
+    "reservation-management",
+    "branch-management",
+    "customer-management",
+    "account-management"
+  ],
   "MANAGER": [
-    "Dashboard",
-    "Reservation Management",
-    "Store Management",
-    "Customer Management",
-    "Account Management"
-  ]
+    "dashboard",
+    "reservation-management",
+    "customer-management",
+    "account-management"
+  ],
+  "STAFF": ["dashboard", "reservation-management"]
 }
