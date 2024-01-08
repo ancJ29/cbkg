@@ -1,6 +1,12 @@
 import { Center, Container, Title } from "@mantine/core";
 
-const AuthLayout = ({ children }: { children?: React.ReactNode }) => {
+const AuthLayout = ({
+  title,
+  children,
+}: {
+  title?: string;
+  children?: React.ReactNode;
+}) => {
   return (
     <Center
       style={{
@@ -12,7 +18,7 @@ const AuthLayout = ({ children }: { children?: React.ReactNode }) => {
       <Container w={480} size="xs" pb={16}>
         <Center>
           <Title fz={42} fw={900}>
-            C-Booking Admin
+            {title ? title : "C-Booking Admin"}
           </Title>
         </Center>
         {children}

@@ -1,32 +1,45 @@
 [
   {
-    "key": "Dashboard",
+    "key": "dashboard",
     "label": "Dashboard",
-    "icon": "home",
+    "icon": "dashboard",
     "url": "/dashboard"
   },
   {
-    "key": "Reservation Management",
+    "key": "reservation-management",
     "label": "Reservation Management",
-    "icon": "table",
-    "url": "/reservation-management"
+    "icon": "kitchen",
+    "url": "/reservation-management",
+    "subMenu": ["list-reservation"]
   },
   {
-    "key": "Store Management",
-    "label": "Store Management",
+    "key": "branch-management",
+    "label": "Branch Management",
     "icon": "store",
-    "url": "/store-management"
+    "url": "/branch-management"
   },
   {
-    "key": "Customer Management",
+    "key": "customer-management",
     "label": "Customer Management",
     "icon": "customer",
     "url": "/customer-management"
   },
   {
-    "key": "Account Management",
+    "key": "account-management",
     "label": "Account Management",
     "icon": "account",
     "url": "/account-management"
+  },
+  {
+    "key": "chain-management",
+    "label": "Chain Management",
+    "url": "/chain-management",
+    "icon": "home"
+  },
+  {
+    "key": "list-reservation",
+    "label": "Reservation list",
+    "url": "/list-reservation",
+    "icon": "home"
   }
 ]

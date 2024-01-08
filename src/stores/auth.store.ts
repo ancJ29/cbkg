@@ -1,9 +1,21 @@
-import { AuthStore, userSchema } from "@/types/auth";
+import { User, userSchema } from "@/types";
 import jwtDecode from "jwt-decode";
 import z from "zod";
 import { create } from "zustand";
 
-const useAuthStore = create<AuthStore>((set, get) => ({
+type AuthStore = {
+  token: string;
+  user: User | null;
+  loadToken: () => void;
+  setToken: (token: string, remember?: boolean) => void;
+  removeToken: () => void;
+};
+
+const payloadSchema = z.object({
+  payload: userSchema,
+});
+
+export default create<AuthStore>((set, get) => ({
   token: "",
   user: null,
 
@@ -32,12 +44,6 @@ const useAuthStore = create<AuthStore>((set, get) => ({
     sessionStorage.removeItem("token");
   },
 }));
-
-export default useAuthStore;
-
-const payloadSchema = z.object({
-  payload: userSchema,
-});
 
 function _decode(token: string) {
   const data = jwtDecode(token);
