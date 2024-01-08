@@ -13,57 +13,66 @@ import {
   Group,
   Stack,
 } from "@mantine/core";
-import { useForm } from "@mantine/form";
+import { isNotEmpty, useForm } from "@mantine/form";
 import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { z } from "zod";
 
+const schema = z.object({
+  password: z.string(),
+  userName: z.string(),
+  remember: z.boolean().optional(),
+});
+
+type LoginProps = z.infer<typeof schema>;
+
 const LoginForm = () => {
   const t = useTranslation();
+  const navigate = useNavigate();
+  const { setToken } = useAuthStore();
 
   const form = useForm<LoginProps>({
     initialValues: {
-      name: "",
+      userName: "",
       password: "",
       remember: false,
     },
     validate: {
-      name: (value) =>
-        value.length < 1 ? t("Please enter Email") : null,
-      password: (value) =>
-        value.length < 1 ? t("Please enter Password") : null,
+      userName: isNotEmpty(t("Please enter Email")),
+      password: isNotEmpty(t("Please enter Password")),
     },
+    // TODO: consider for better approach!
+    transformValues,
   });
-  const navigate = useNavigate();
-  const { setToken } = useAuthStore();
 
-  const onLogin = useCallback(
+  const login = useCallback(
     async (value: LoginProps) => {
-      const data = await callApi({
+      const res = await callApi<unknown, { token: string }>({
         params: value,
         action: "login",
       });
-      if (data) {
-        setToken(data.token, value.remember);
+      if (res?.token) {
+        setToken(res.token, form.values.remember);
         navigate("/dashboard");
       } else {
         form.setErrors({
-          password: t("Email or password is incorrect."),
+          password: t("Username or password is incorrect."),
         });
       }
     },
     [form, navigate, setToken, t],
   );
+
   return (
     <Card withBorder shadow="md" radius={10} mt="1rem">
       <Stack gap="xs" p=".5rem" pt={0}>
-        <form onSubmit={form.onSubmit(onLogin)}>
+        <form onSubmit={form.onSubmit(login)}>
           <TextInput
             withAsterisk
             pb=".8rem"
-            label={t("Email")}
-            placeholder={t("Enter Email")}
-            {...form.getInputProps("name")}
+            label={t("Username")}
+            placeholder={t("Enter Username")}
+            {...form.getInputProps("userName")}
           />
           <PasswordInput
             withAsterisk
@@ -93,9 +102,9 @@ const LoginForm = () => {
 
 export default LoginForm;
 
-const schema = z.object({
-  password: z.string(),
-  name: z.string(),
-  remember: z.boolean(),
-});
-type LoginProps = z.infer<typeof schema>;
+function transformValues(values: LoginProps) {
+  return {
+    userName: values.userName.toString().trim(),
+    password: values.password.toString().trim(),
+  };
+}

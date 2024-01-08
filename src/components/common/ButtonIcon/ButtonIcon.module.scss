@@ -1,0 +1,8 @@
+@import "@/styles/_variables.scss";
+
+.container {
+  background: none;
+  &:hover {
+    background: $hover-background-color;
+  }
+}

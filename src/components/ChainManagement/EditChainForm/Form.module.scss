@@ -1,0 +1,30 @@
+.inputContainer {
+  display: flex;
+  align-items: center;
+
+  .input,
+  .classNameBox {
+    min-width: 26rem;
+  }
+
+  p {
+    width: 12rem;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .inputContainer {
+    display: block;
+    align-items: center;
+
+    .input {
+      min-width: 100%;
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .btn {
+    width: 100%;
+  }
+}

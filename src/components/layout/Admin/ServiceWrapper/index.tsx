@@ -3,6 +3,7 @@ import { useDisclosure } from "@mantine/hooks";
 import { isMobile } from "react-device-detect";
 import AdminHeader from "../AdminHeader";
 import Navbar from "../Navbar";
+import classes from "./ServiceWrapper.module.scss";
 
 type Props = {
   children: React.ReactNode;
@@ -15,7 +16,7 @@ const ServiceWrapper = ({ children }: Props) => {
   return (
     <AppShell
       mih="100vh"
-      header={{ height: 70 }}
+      header={{ height: "4.5rem" }}
       navbar={{
         width: open ? 300 : 60,
         breakpoint: "sm",
@@ -35,16 +36,15 @@ const ServiceWrapper = ({ children }: Props) => {
           <Navbar
             display={!open}
             onClick={() => isMobile && toggle()}
+            onShowFullNavbar={() => !open && toggle()}
           />
         }
       </AppShell.Navbar>
       <AppShell.Main style={{ display: "flex" }}>
         <div
-          style={{
-            width: "100%",
-            flex: "grow",
-            overflow: "scroll",
-          }}
+          className={
+            isMobile ? classes.mobileContainer : classes.container
+          }
         >
           {children}
         </div>
