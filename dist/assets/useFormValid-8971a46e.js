@@ -1,0 +1,1 @@
+import{r as n}from"./index-db117989.js";function a(s,e,r){return n.useMemo(()=>{if(r&&JSON.stringify(s.values)===JSON.stringify(r))return!1;const t=e(s.values);return!Object.values(t).some(u=>u!==null)},[r,e,s.values])}export{a as u};

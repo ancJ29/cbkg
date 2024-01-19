@@ -1,0 +1,80 @@
+@import "@/styles/_variables.scss";
+
+.container {
+  display: flex;
+  gap: 0.2rem;
+  justify-content: space-between;
+}
+
+.tableWrapper {
+  border: 1px solid $input-highlight-color;
+}
+
+.header {
+  display: flex;
+  background-color: $main-color;
+  padding: 10px;
+  color: white;
+}
+
+.item {
+  padding: 0.5rem 1rem;
+  display: flex;
+  border-top: 1px solid $input-highlight-color;
+  align-items: center;
+  gap: 10px;
+
+  &:hover {
+    background: $hover-background-color;
+  }
+
+  .label {
+    display: none;
+  }
+}
+
+.itemDetail {
+  flex: 1;
+}
+
+@media screen and (max-width: 600px) {
+  .container {
+    flex-direction: column;
+  }
+
+  .tableWrapper {
+    border: none;
+  }
+
+  .header {
+    display: none;
+  }
+
+  .item {
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    display: block;
+    margin-bottom: 0.625em;
+    background-color: $hover-background-color;
+
+    .label {
+      display: flex;
+      font-weight: 700;
+    }
+  }
+
+  .item:last-child {
+    margin: 0;
+  }
+
+  .itemDetail {
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+    padding: 0.6rem;
+  }
+
+  .itemDetail:last-child {
+    border-bottom: 0;
+  }
+}

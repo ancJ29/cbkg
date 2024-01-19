@@ -1,9 +1,12 @@
-import { Center, Text } from "@mantine/core";
+import { Center, Text, TextProps } from "@mantine/core";
+interface Props extends TextProps {
+  children: React.ReactNode;
+}
 
-const TextCenter = ({ children }: { children: React.ReactNode }) => {
+const TextCenter = ({ children, ...props }: Props) => {
   return (
     <Center>
-      <Text>{children}</Text>
+      <Text {...props}>{children}</Text>
     </Center>
   );
 };

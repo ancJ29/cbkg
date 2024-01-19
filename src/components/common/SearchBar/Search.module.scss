@@ -1,0 +1,13 @@
+@import "@/styles/_variables.scss";
+
+.container {
+  display: flex;
+  gap: 0.6rem;
+  justify-content: space-between;
+}
+
+@media screen and (max-width: 600px) {
+  .container {
+    flex-direction: column;
+  }
+}

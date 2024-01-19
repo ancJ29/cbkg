@@ -9,11 +9,11 @@ import { useNavigate } from "react-router-dom";
 export default function Login() {
   const t = useTranslation();
   const navigate = useNavigate();
-  const authStore = useAuthStore();
+  const { user } = useAuthStore();
 
   useEffect(() => {
-    authStore.user && navigate("/dashboard");
-  }, [authStore, navigate]);
+    user && navigate("/dashboard");
+  }, [navigate, user]);
 
   return (
     <AuthLayout>

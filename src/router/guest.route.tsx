@@ -3,8 +3,10 @@ import { Navigate, type RouteObject } from "react-router-dom";
 
 const map = {
   Login: lazy(() => import("@/routes/login")),
-  Register: lazy(() => import("@/routes/register")),
   ForgotPassword: lazy(() => import("@/routes/forgot-password")),
+  LandingPage: lazy(
+    () => import("@/routes/reservation-landing-page"),
+  ),
 };
 const routes: RouteObject[] = [
   {
@@ -12,12 +14,12 @@ const routes: RouteObject[] = [
     element: <map.Login />,
   },
   {
-    path: "/register",
-    element: <map.Register />,
-  },
-  {
     path: "/forgot-password",
     element: <map.ForgotPassword />,
+  },
+  {
+    path: "/landing-page",
+    element: <map.LandingPage />,
   },
   {
     path: "/*",
