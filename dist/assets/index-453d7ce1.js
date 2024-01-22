@@ -1,0 +1,1 @@
+import{t as r,C as t,B as a}from"./index-db117989.js";import{u as o}from"./useTranslation-d9fa93c2.js";const i=()=>{const s=o();return r.jsx(t,{bg:"gray.1",w:"100%",h:"100%",children:r.jsx(a,{w:"30vw",ta:"center",children:s("Dashboard")})})};export{i as default};

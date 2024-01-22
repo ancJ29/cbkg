@@ -1,1 +1,153 @@
-// TODO: add custom class here
+@import "@/styles/_variables.scss";
+
+.bdr {
+  &-t {
+    border-top: 1px solid $input-highlight-color;
+  }
+
+  &-b {
+    border-bottom: 1px solid $input-highlight-color;
+  }
+
+  &-f {
+    border: 1px solid $input-highlight-color;
+  }
+}
+
+.p {
+  &-0 {
+    padding: 0;
+  }
+}
+
+.w {
+  &-full {
+    width: 100%;
+  }
+}
+
+.bg {
+  &-main {
+    background-color: $main-color;
+  }
+
+  &-pending-status {
+    background-color: $pending-status-color;
+  }
+
+  &-confirmed-status {
+    background-color: $confirmed-status-color;
+  }
+
+  &-reserved-status {
+    background-color: $confirmed-status-color;
+  }
+
+  &-arrived-status {
+    background-color: $confirmed-status-color;
+  }
+
+  &-completed-status {
+    background-color: $main-color;
+  }
+
+  &-cancelled-status {
+    background-color: $cancelled-status-color;
+  }
+}
+
+.text {
+  &-main {
+    color: $main-color;
+  }
+
+  &-white {
+    color: white;
+  }
+
+  &-hight-light {
+    color: $hight-light-color;
+  }
+
+  &-14 {
+    font-size: 14tpx;
+  }
+
+  &-16 {
+    font-size: 16px;
+  }
+}
+
+.cursor {
+  &-pointer {
+    cursor: pointer;
+  }
+
+  &-initial {
+    cursor: initial;
+  }
+}
+
+.align {
+  &-center {
+    align-items: center;
+  }
+
+  &-stretch {
+    align-items: stretch;
+  }
+}
+
+.justify {
+  &-center {
+    justify-content: center;
+  }
+}
+
+.justify {
+  &-center {
+    justify-content: center;
+  }
+}
+
+.font {
+  &-bold {
+    font-weight: bold;
+  }
+
+  &-600 {
+    font-weight: 600 !important;
+  }
+}
+
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.btnIcon {
+  background: none;
+
+  &:hover {
+    background: $hover-background-color;
+  }
+}
+
+.flex {
+  display: flex;
+}
+
+.h {
+  &-16 {
+    height: 16px;
+  }
+}
+
+.flx {
+  &-ct {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}

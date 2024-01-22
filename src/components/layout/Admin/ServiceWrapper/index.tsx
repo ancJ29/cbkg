@@ -1,8 +1,9 @@
-import { AppShell, Burger } from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
-import { isMobile } from "react-device-detect";
+import { AppShell, Box, Burger, Button } from "@mantine/core";
+import { useDisclosure, useWindowScroll } from "@mantine/hooks";
+import { BrowserView, isMobile } from "react-device-detect";
 import AdminHeader from "../AdminHeader";
 import Navbar from "../Navbar";
+import { IconArrowUp } from "@tabler/icons-react";
 
 type Props = {
   children: React.ReactNode;
@@ -11,11 +12,12 @@ type Props = {
 
 const ServiceWrapper = ({ children }: Props) => {
   const [open, { toggle }] = useDisclosure(isMobile ? false : true);
+  const [scroll, scrollTo] = useWindowScroll();
 
   return (
     <AppShell
       mih="100vh"
-      header={{ height: 70 }}
+      header={{ height: "4.5rem" }}
       navbar={{
         width: open ? 300 : 60,
         breakpoint: "sm",
@@ -35,20 +37,39 @@ const ServiceWrapper = ({ children }: Props) => {
           <Navbar
             display={!open}
             onClick={() => isMobile && toggle()}
+            onShowFullNavbar={() => !open && toggle()}
           />
         }
       </AppShell.Navbar>
-      <AppShell.Main style={{ display: "flex" }}>
-        <div
+      <AppShell.Main>
+        <Box
           style={{
-            width: "100%",
             flex: "grow",
-            overflow: "scroll",
+            height: "auto",
+            width: "100%",
           }}
         >
           {children}
-        </div>
-      </AppShell.Main>
+        </Box>
+      </AppShell.Main>{" "}
+      <BrowserView>
+        {scroll.y >= 10 && (
+          <Button
+            variant="outline"
+            radius={999}
+            p={0}
+            w={40}
+            h={40}
+            pos="fixed"
+            bottom="3rem"
+            left={"50%"}
+            onClick={() => scrollTo({ y: 0 })}
+            bg="#ced4da"
+          >
+            <IconArrowUp />
+          </Button>
+        )}
+      </BrowserView>
     </AppShell>
   );
 };

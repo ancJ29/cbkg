@@ -1,0 +1,122 @@
+@import "@/styles/_variables.scss";
+
+.container {
+  display: flex;
+  gap: 0.2rem;
+  justify-content: space-between;
+}
+
+.tableWrapper {
+  border: 1px solid $input-highlight-color;
+}
+
+.header {
+  display: flex;
+  background-color: $main-color;
+  padding: 10px;
+  color: white;
+}
+
+.item {
+  padding: 0.5rem;
+  display: flex;
+  border-top: 1px solid $input-highlight-color;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+
+  &:hover {
+    background: $hover-background-color;
+  }
+
+  .label {
+    display: none;
+  }
+}
+
+.itemDetail {
+  flex: 2;
+}
+
+.filter {
+  display: none;
+}
+
+.filterItem {
+  display: flex;
+}
+
+.label {
+  gap: 2rem;
+  padding-left: 0.4rem;
+  margin-top: 1rem;
+}
+
+.btn {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 999px;
+  font-size: 2.6rem;
+  text-align: center;
+  bottom: 2rem;
+  right: 2rem;
+  position: fixed;
+}
+
+@media screen and (max-width: 900px) {
+  .header {
+    display: none;
+  }
+
+  .item {
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    display: block;
+    margin-bottom: 0.625em;
+    background-color: $hover-background-color;
+
+    .label {
+      display: flex;
+      font-weight: 700;
+    }
+  }
+
+  .item:last-child {
+    margin: 0;
+  }
+
+  .itemDetail {
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+    padding: 0.6rem;
+  }
+
+  .itemDetail:last-child {
+    border-bottom: 0;
+  }
+
+  .filter {
+    display: flex;
+  }
+
+  .filterItem {
+    display: none;
+  }
+
+  .btn {
+    width: 3rem;
+    height: 3rem;
+    padding: 0;
+    font-size: 2rem;
+    bottom: 1rem;
+    right: 1rem;
+    position: fixed;
+  }
+
+  .label {
+    flex-direction: column;
+    padding-left: 0.4rem;
+    gap: 0;
+  }
+}
