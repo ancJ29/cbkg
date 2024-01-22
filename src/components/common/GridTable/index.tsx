@@ -9,7 +9,7 @@ import {
 import cls from "classnames";
 import React from "react";
 import { BrowserView, MobileView } from "react-device-detect";
-import Scroll from "../Scroll";
+import Scroll from "../InfiniteScroll";
 import classes from "./GridTable.module.scss";
 
 type Header = {

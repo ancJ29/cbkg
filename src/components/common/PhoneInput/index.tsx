@@ -6,6 +6,7 @@ import {
 } from "@mantine/core";
 import { ChangeEvent, useCallback, useState } from "react";
 import classes from "./PhoneInput.module.scss";
+import useWatchProp from "@/hooks/useWatchProp";
 
 interface PhoneInputProps extends MantineTextInputProps {
   value?: string;
@@ -28,6 +29,7 @@ const PhoneInput = ({
   ...props
 }: PhoneInputProps) => {
   const [_value, setValue] = useState(formatPhoneNumber(value || ""));
+
   const handleKeyDown = (
     e: React.KeyboardEvent<HTMLInputElement>,
   ) => {
@@ -48,6 +50,8 @@ const PhoneInput = ({
     },
     [onChangeValue],
   );
+
+  useWatchProp(value, () => value === undefined && setValue(""));
 
   return (
     <Box className={className}>

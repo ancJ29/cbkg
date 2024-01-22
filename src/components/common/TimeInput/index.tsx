@@ -24,6 +24,7 @@ const TimeInput = ({ ...props }: TimeInputProps) => {
   return (
     <TimeInputMantine
       ref={ref}
+      onClick={() => ref.current?.showPicker()}
       rightSection={pickerControl}
       {...props}
     />

@@ -1,16 +1,18 @@
+/* eslint-disable @typescript-eslint/indent */
 import useMetaDataStore from "@/stores/meta-data.store";
 import { FilterProps, OptionProps, Reservation } from "@/types";
 import { convertToInternationalFormat } from "@/utils";
 import dayjs from "dayjs";
 import { toast } from "react-toastify";
 import callApi from "../api";
+import { TAKE } from "@/configs/constants";
 
 export enum BOOKING_STATUS {
   "PENDING" = "Pending",
   "CONFIRMED" = "Confirmed",
   "RESERVED" = "Reserved",
-  "COMPLETED" = "Completed",
   "ARRIVED" = "Arrived",
+  "COMPLETED" = "Completed",
   "CANCELLED" = "Cancelled",
 }
 
@@ -50,7 +52,7 @@ export const CUSTOMER_BOOKING_OPTIONS: OptionProps[] = Object.keys(
 export default async function getReservation(
   filter?: FilterProps,
   cursor?: string,
-): Promise<Reservation[]> {
+): Promise<{ data: Reservation[]; cursor?: string }> {
   let status: string[] = [];
   if (filter?.statuses) {
     if (Array.isArray(filter.status) && filter?.status?.length) {
@@ -59,7 +61,7 @@ export default async function getReservation(
       status = [filter.status];
     }
   }
-  let data = await _loadReservations({
+  const { data, cursor: _cursor } = await _loadReservations({
     cursor,
     name: filter?.keyword?.trim() || undefined,
     phone: convertToInternationalFormat(filter?.phone) || undefined,
@@ -70,7 +72,7 @@ export default async function getReservation(
   });
 
   // TODO: filter keyword in BE
-  data = data.filter((item) => {
+  let _data = data.filter((item) => {
     if (filter?.keyword) {
       const keyword = filter.keyword.trim().toLocaleLowerCase();
       const fullName = item?.contact?.toLocaleLowerCase() || "";
@@ -83,8 +85,7 @@ export default async function getReservation(
   });
 
   const { chainsById, branchesById } = useMetaDataStore.getState();
-
-  return data.map((el) => {
+  _data = _data.map((el) => {
     if (el.branchId) {
       el.branch = branchesById[el.branchId];
     }
@@ -95,9 +96,11 @@ export default async function getReservation(
     el.time = dayjs(el.from).format("HH:mm");
     return el;
   });
+
+  return { data: _data, cursor: _cursor };
 }
 
-async function _loadReservations({
+export async function _loadReservations({
   cursor,
   branchId,
   statuses,
@@ -113,26 +116,27 @@ async function _loadReservations({
   phone?: string;
   branchId?: string;
   cursor?: string;
-} = {}): Promise<Reservation[]> {
-  const res = await callApi<unknown, { reservations: Reservation[] }>(
-    {
-      action: "get-reservations",
-      params: {
-        take: 100,
-        cursor,
-        phone,
-        name,
-        branchIds: branchId ? [branchId] : undefined,
-        statuses,
-        from,
-        to,
-      },
-      options: {
-        noCache: true,
-      },
+} = {}): Promise<{ data: Reservation[]; cursor?: string }> {
+  const res = await callApi<
+    unknown,
+    { reservations: Reservation[]; cursor: string }
+  >({
+    action: "get-reservations",
+    params: {
+      take: TAKE,
+      cursor,
+      phone,
+      name,
+      branchIds: branchId ? [branchId] : undefined,
+      statuses,
+      from,
+      to,
     },
-  );
-  return res?.reservations || [];
+    options: {
+      noCache: true,
+    },
+  });
+  return { data: res?.reservations || [], cursor: res?.cursor };
 }
 
 export async function addReservation(value: Reservation) {

@@ -6,7 +6,8 @@
   "scripts": {
     "sync:schema": "cd ../api && yarn sync:schema",
     "dev": "vite",
-    "build": "vite build",
+    "pre-build": " cp -r ../schema/auto-generated/ ./src/auto-generated/ && cp ../api/src/configs/*.ts ./src/auto-generated/api-configs/",
+    "build": "yarn pre-build && vite build",
     "preview": "vite preview",
     "static:check": "eslint . && prettier --check .",
     "static:fix": "eslint . --fix && prettier --write .",

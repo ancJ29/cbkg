@@ -51,7 +51,7 @@ const ServiceWrapper = ({ children }: Props) => {
         >
           {children}
         </Box>
-      </AppShell.Main>
+      </AppShell.Main>{" "}
       <BrowserView>
         {scroll.y >= 10 && (
           <Button

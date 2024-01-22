@@ -1,7 +1,7 @@
 import { Box, Center, Loader } from "@mantine/core";
 import { useCallback } from "react";
-import { isMobile } from "react-device-detect";
 import InfiniteScroll from "react-infinite-scroll-component";
+import classes from "./InfiniteScroll.module.scss";
 
 type ScrollProps = {
   dataLength?: number;
@@ -20,12 +20,11 @@ const Scroll = ({
   }, [handleScroll]);
 
   return (
-    <div id="scrollableDiv" style={{ overflow: "auto" }}>
+    <div className={classes.container}>
       <InfiniteScroll
         dataLength={dataLength}
         next={next}
         hasMore={hasMore}
-        scrollableTarget={isMobile ? "" : "scrollableDiv"}
         loader={
           <Center>
             <Loader />

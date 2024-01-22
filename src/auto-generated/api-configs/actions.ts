@@ -13,15 +13,7 @@ import {
   Role,
 } from "@/auto-generated/prisma-schema/enums";
 import { z } from "zod";
-import {
-  allUserConfig,
-  branchConfig,
-  chainConfig,
-  guestAction,
-  onlyAdmin,
-  publicAction,
-  userConfig,
-} from "./_role-config";
+import roleConfigs from "./_role-config";
 import {
   addResponse,
   dateSchema,
@@ -30,17 +22,19 @@ import {
   futureDateSchema,
   getSchema,
   listResponse,
-  loginSchema,
   phoneSchema,
-  successResponse,
-} from "./_schema";
+} from "./schema";
 
 const config = {
   "login": {
     group: "Authentications",
-    roleConfig: guestAction,
+    roleConfig: roleConfigs.guestAction,
     schema: {
-      request: loginSchema,
+      request: z.object({
+        userName: z.string(),
+        password: z.string(),
+        remember: z.boolean().optional(),
+      }),
       response: z.object({
         token: z.string(),
       }),
@@ -50,7 +44,7 @@ const config = {
   // Chains
   "get-chains": {
     group: "Branch management",
-    roleConfig: publicAction,
+    roleConfig: roleConfigs.publicAction,
     schema: {
       request: getSchema,
       response: listResponse.extend({
@@ -64,7 +58,7 @@ const config = {
   },
   "add-chain": {
     group: "Branch management",
-    roleConfig: chainConfig,
+    roleConfig: roleConfigs.chainConfig,
     schema: {
       request: chainSchema
         .pick({
@@ -76,7 +70,7 @@ const config = {
   },
   "update-chain": {
     group: "Branch management",
-    roleConfig: chainConfig,
+    roleConfig: roleConfigs.chainConfig,
     schema: {
       request: chainSchema
         .pick({
@@ -88,7 +82,7 @@ const config = {
   },
   "delete-chain": {
     group: "Branch management",
-    roleConfig: chainConfig,
+    roleConfig: roleConfigs.chainConfig,
     schema: {
       request: z.object({
         id: z.string(),
@@ -98,7 +92,7 @@ const config = {
   // Branches
   "get-branches": {
     group: "Branch management",
-    roleConfig: publicAction,
+    roleConfig: roleConfigs.publicAction,
     schema: {
       request: getSchema.extend({
         chainId: z.string().optional(),
@@ -111,7 +105,7 @@ const config = {
   },
   "add-branch": {
     group: "Branch management",
-    roleConfig: branchConfig,
+    roleConfig: roleConfigs.branchConfig,
     schema: {
       request: z
         .object({
@@ -129,7 +123,7 @@ const config = {
   },
   "update-branch": {
     group: "Branch management",
-    roleConfig: branchConfig,
+    roleConfig: roleConfigs.branchConfig,
     schema: {
       request: z
         .object({
@@ -146,7 +140,7 @@ const config = {
   },
   "delete-branch": {
     group: "Branch management",
-    roleConfig: branchConfig,
+    roleConfig: roleConfigs.branchConfig,
     schema: {
       request: z.object({
         id: z.string(),
@@ -156,7 +150,7 @@ const config = {
   // Tables
   "get-tables": {
     group: "Branch management",
-    roleConfig: publicAction,
+    roleConfig: roleConfigs.publicAction,
     schema: {
       request: getSchema.extend({
         branchId: z.string(),
@@ -168,7 +162,7 @@ const config = {
   },
   "add-tables": {
     group: "Branch management",
-    roleConfig: onlyAdmin,
+    roleConfig: roleConfigs.onlyAdmin,
     schema: {
       request: z.object({
         branchId: z.string(),
@@ -180,12 +174,11 @@ const config = {
             .required(),
         ),
       }),
-      response: successResponse,
     },
   },
   "update-table": {
     group: "Branch management",
-    roleConfig: onlyAdmin,
+    roleConfig: roleConfigs.onlyAdmin,
     schema: {
       request: tableSchema
         .pick({
@@ -197,7 +190,7 @@ const config = {
   },
   "delete-table": {
     group: "Branch management",
-    roleConfig: onlyAdmin,
+    roleConfig: roleConfigs.onlyAdmin,
     schema: {
       request: tableSchema
         .pick({
@@ -209,7 +202,7 @@ const config = {
   // Messages
   "get-messages": {
     group: "Message template",
-    roleConfig: onlyAdmin,
+    roleConfig: roleConfigs.onlyAdmin,
     schema: {
       request: getSchema.extend({
         from: z.string().optional(),
@@ -222,7 +215,7 @@ const config = {
   },
   "get-all-message-templates": {
     group: "Message template",
-    roleConfig: onlyAdmin,
+    roleConfig: roleConfigs.onlyAdmin,
     schema: {
       request: z.object({}),
       response: messageTemplateSchema.array(),
@@ -230,7 +223,7 @@ const config = {
   },
   "add-message-template": {
     group: "Message template",
-    roleConfig: onlyAdmin,
+    roleConfig: roleConfigs.onlyAdmin,
     schema: {
       request: messageTemplateSchema
         .pick({
@@ -243,33 +236,30 @@ const config = {
         .extend({
           config: z.record(z.string(), z.string()),
         }),
-      response: successResponse,
     },
   },
   "disable-message-template": {
     group: "Message template",
-    roleConfig: onlyAdmin,
+    roleConfig: roleConfigs.onlyAdmin,
     schema: {
       request: z.object({
         code: z.string(),
       }),
-      response: successResponse,
     },
   },
   "enable-message-template": {
     group: "Message template",
-    roleConfig: onlyAdmin,
+    roleConfig: roleConfigs.onlyAdmin,
     schema: {
       request: z.object({
         code: z.string(),
       }),
-      response: successResponse,
     },
   },
   // Reservation
   "get-reservations": {
     group: "Reservation",
-    roleConfig: publicAction,
+    roleConfig: roleConfigs.publicAction,
     schema: {
       request: getSchema.extend({
         name: z.string().optional(),
@@ -286,7 +276,7 @@ const config = {
   },
   "add-reservation": {
     group: "Reservation",
-    roleConfig: allUserConfig,
+    roleConfig: roleConfigs.allUserConfig,
     schema: {
       request: reservationSchema
         .pick({
@@ -306,12 +296,11 @@ const config = {
             .refine((e) => e !== ReservationStatus.CANCELLED)
             .describe("Except Cancelled Status"),
         }),
-      response: successResponse,
     },
   },
   "add-reservation-by-end-user": {
     group: "Reservation",
-    roleConfig: guestAction,
+    roleConfig: roleConfigs.guestAction,
     schema: {
       request: reservationSchema
         .pick({
@@ -334,7 +323,7 @@ const config = {
   },
   "update-reservation": {
     group: "Reservation",
-    roleConfig: allUserConfig,
+    roleConfig: roleConfigs.allUserConfig,
     schema: {
       request: reservationSchema
         .pick({
@@ -376,7 +365,7 @@ const config = {
   },
   "confirm-reservation-by-code": {
     group: "Reservation",
-    roleConfig: publicAction,
+    roleConfig: roleConfigs.publicAction,
     schema: {
       request: reservationSchema
         .pick({
@@ -436,28 +425,26 @@ const config = {
   },
   "change-password": {
     group: "User management",
-    roleConfig: onlyAdmin,
+    roleConfig: roleConfigs.onlyAdmin,
     schema: {
       request: z.object({
         id: z.string(),
         password: z.string(),
       }),
-      response: successResponse,
     },
   },
   "disable-users": {
     group: "User management",
-    roleConfig: onlyAdmin,
+    roleConfig: roleConfigs.onlyAdmin,
     schema: {
       request: z.object({
         ids: z.array(z.string()),
       }),
-      response: successResponse,
     },
   },
   "add-user": {
     group: "User management",
-    roleConfig: userConfig,
+    roleConfig: roleConfigs.userConfig,
     schema: {
       request: z.object({
         userName: z.string(),
@@ -477,7 +464,7 @@ const config = {
   },
   "edit-user": {
     group: "User management",
-    roleConfig: userConfig,
+    roleConfig: roleConfigs.userConfig,
     schema: {
       request: z.object({
         id: z.string(),
@@ -492,7 +479,7 @@ const config = {
   // Customer management
   "get-customers": {
     group: "Customer management",
-    roleConfig: allUserConfig,
+    roleConfig: roleConfigs.allUserConfig,
     schema: {
       request: getSchema,
       response: listResponse.extend({
@@ -502,7 +489,7 @@ const config = {
   },
   "add-customer": {
     group: "Customer management",
-    roleConfig: allUserConfig,
+    roleConfig: roleConfigs.allUserConfig,
     schema: {
       request: customerSchema
         .pick({
@@ -515,7 +502,7 @@ const config = {
   },
   "edit-customer": {
     group: "Customer management",
-    roleConfig: allUserConfig,
+    roleConfig: roleConfigs.allUserConfig,
     schema: {
       request: customerSchema
         .pick({

@@ -56,6 +56,11 @@ const FilterReservationForm = ({
     },
     [branchOptionsByChainId, form],
   );
+  const onReset = useCallback(() => {
+    form.reset();
+    form.setFieldValue("from", undefined);
+    form.setFieldValue("to", undefined);
+  }, [form]);
 
   return (
     <div className="w-full">
@@ -164,7 +169,7 @@ const FilterReservationForm = ({
               <Button
                 variant="outline"
                 className="w-full"
-                onClick={form.reset}
+                onClick={onReset}
               >
                 {t("Clear filter")}
               </Button>
@@ -183,7 +188,7 @@ const FilterReservationForm = ({
           <Button onClick={() => onFilter && onFilter(form.values)}>
             {t("Apply")}
           </Button>
-          <Button variant="outline" onClick={form.reset}>
+          <Button variant="outline" onClick={onReset}>
             {t("Clear filter")}
           </Button>
         </Flex>

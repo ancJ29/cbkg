@@ -1,10 +1,12 @@
 import useTranslation from "@/hooks/useTranslation";
-import { MantineStyleProp } from "@mantine/core";
+import {
+  MantineStyleProp,
+  Table as TableMantine,
+} from "@mantine/core";
 import cls from "classnames";
-import Scroll from "../Scroll";
-import classes from "./FlexTable.module.scss";
-import { Table as TableMantine } from "@mantine/core";
 import React from "react";
+import Scroll from "../InfiniteScroll";
+import classes from "./FlexTable.module.scss";
 import Wrapper from "./Wrapper";
 
 type Header = {
